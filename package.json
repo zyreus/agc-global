@@ -1,0 +1,17 @@
+{
+  "name": "agc-global",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev:full",
+    "dev:vite": "npm --prefix frontend run dev",
+    "dev:mix": "npm --prefix backend run dev",
+    "dev:api": "cd backend && php artisan serve",
+    "dev:full": "concurrently -n api,vite -c magenta,cyan \"npm run dev:api\" \"npm run dev:vite\"",
+    "build": "npm run build:vite",
+    "build:vite": "npm --prefix frontend run build",
+    "lint:vite": "npm --prefix frontend run lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

@@ -1,0 +1,14 @@
+# Root workspace (concurrently, etc.)
+/node_modules
+
+# Local phpMyAdmin dump (contains hashed passwords, API tokens, PII)
+/agc_global.sql
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+Thumbs.db
