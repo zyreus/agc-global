@@ -1,5 +1,6 @@
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import AdminLogin from './pages/AdminLogin.jsx'
@@ -12,6 +13,7 @@ import AdminCrm from './pages/AdminCrm.jsx'
 import AdminLeads from './pages/AdminLeads.jsx'
 import AdminFeedback from './pages/AdminFeedback.jsx'
 import AdminSettings from './pages/AdminSettings.jsx'
+import AdminModulePlaceholder from './pages/AdminModulePlaceholder.jsx'
 
 function App() {
   const location = useLocation()
@@ -41,11 +43,13 @@ function App() {
             <Route path="settings" element={<AdminSettings />} />
             <Route path="announcements" element={<AdminAnnouncements />} />
             <Route path="subscribers" element={<AdminSubscribers />} />
+            <Route path="workspace/:slug" element={<AdminModulePlaceholder />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
         {!isAdminRoute && <Footer />}
+        {!isAdminRoute && <ScrollToTop />}
       </div>
     </div>
   )

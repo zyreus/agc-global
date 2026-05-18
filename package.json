@@ -6,7 +6,7 @@
     "dev": "npm run dev:full",
     "dev:vite": "npm --prefix frontend run dev",
     "dev:mix": "npm --prefix backend run dev",
-    "dev:api": "cd backend && php artisan serve",
+    "dev:api": "cd backend && php artisan serve --host=127.0.0.1 --port=8201",
     "dev:full": "concurrently -n api,vite -c magenta,cyan \"npm run dev:api\" \"npm run dev:vite\"",
     "dev:pm2": "node scripts/pm2-with-project-pipes.mjs pm2 start ecosystem.config.cjs",
     "dev:pm2:fg": "node scripts/pm2-with-project-pipes.mjs pm2-runtime start ecosystem.config.cjs",

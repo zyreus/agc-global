@@ -10,17 +10,31 @@ class AdminUserSeeder extends Seeder
 {
     public function run(): void
     {
-        $username = env('ADMIN_USERNAME', 'AGCTekadmin');
-        $email = env('ADMIN_EMAIL');
-        $password = env('ADMIN_PASSWORD', 'ACTek_@dm1n');
-
-        AdminUser::query()->updateOrCreate(
-            ['username' => $username],
+        $accounts = [
             [
-                'email' => $email ?: null,
-                'password' => Hash::make($password),
-            ]
-        );
+                'username' => env('ADMIN_USERNAME', 'AGCTekadmin'),
+                'email' => env('ADMIN_EMAIL'),
+                'password' => env('ADMIN_PASSWORD', 'ACTek_@dm1n'),
+            ],
+        ];
+
+        if (app()->environment('local')) {
+            $accounts[] = [
+                'username' => 'admin',
+                'email' => 'admin@agc.local',
+                'password' => 'admin123',
+            ];
+        }
+
+        foreach ($accounts as $account) {
+            AdminUser::query()->updateOrCreate(
+                ['username' => $account['username']],
+                [
+                    'email' => $account['email'] ?: null,
+                    'password' => Hash::make($account['password']),
+                ]
+            );
+        }
     }
 }
 

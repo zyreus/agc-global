@@ -21,7 +21,7 @@ module.exports = {
       cwd: path.join(root, 'backend'),
       script: 'artisan',
       interpreter: 'php',
-      args: 'serve --host=127.0.0.1 --port=8000',
+      args: 'serve --host=127.0.0.1 --port=8201',
       autorestart: true,
       watch: false,
       max_memory_restart: '500M',

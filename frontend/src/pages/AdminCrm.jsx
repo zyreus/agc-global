@@ -158,10 +158,7 @@ export default function AdminCrm() {
 
   const deleteSelected = async () => {
     if (selectedIds.length === 0) return
-    for (const sessionId of selectedIds) {
-      // eslint-disable-next-line no-await-in-loop
-      await adminApi(`/admin/crm/conversations/${sessionId}`, { method: 'DELETE' })
-    }
+    await Promise.all(selectedIds.map((sessionId) => adminApi(`/admin/crm/conversations/${sessionId}`, { method: 'DELETE' })))
     setSelectedIds([])
     setSelected(null)
     setDetail(null)
@@ -219,6 +216,14 @@ export default function AdminCrm() {
                 <option key={s.id} value={s.id}>{s.label}</option>
               ))}
             </select>
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => load()}
+              className="w-full rounded-lg border border-black/10 bg-white px-2 py-1.5 text-xs font-semibold hover:bg-black/5 disabled:opacity-50"
+            >
+              {loading ? 'Loading…' : 'Refresh list'}
+            </button>
             {activeTab === 'chats' && (
               <div className="flex gap-2">
                 <button type="button" onClick={() => setSelectedIds(conversations.map((c) => c.session_id))} className="flex-1 rounded-lg border border-black/10 bg-white px-2 py-1.5 text-xs hover:bg-black/5">

@@ -20,7 +20,7 @@ function resolveApiBaseUrl() {
     if (!loopback) return '/api'
   }
 
-  return 'http://127.0.0.1:8000/api'
+  return 'http://127.0.0.1:8201/api'
 }
 
 export const API_BASE_URL = resolveApiBaseUrl()

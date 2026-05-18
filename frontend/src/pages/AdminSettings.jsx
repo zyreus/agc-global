@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 const STORAGE_KEY = 'agc_admin_settings_v1'
 
@@ -13,22 +13,21 @@ const defaultSettings = {
   businessHoursOnly: false,
 }
 
-export default function AdminSettings() {
-  const [settings, setSettings] = useState(defaultSettings)
-  const [saved, setSaved] = useState(false)
+function readStoredSettings() {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    if (!raw) return defaultSettings
+    const parsed = JSON.parse(raw)
+    if (parsed && typeof parsed === 'object') return { ...defaultSettings, ...parsed }
+  } catch {
+    /* ignore */
+  }
+  return defaultSettings
+}
 
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY)
-      if (!raw) return
-      const parsed = JSON.parse(raw)
-      if (parsed && typeof parsed === 'object') {
-        setSettings((prev) => ({ ...prev, ...parsed }))
-      }
-    } catch {
-      // ignore
-    }
-  }, [])
+export default function AdminSettings() {
+  const [settings, setSettings] = useState(readStoredSettings)
+  const [saved, setSaved] = useState(false)
 
   const onSave = () => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(settings))

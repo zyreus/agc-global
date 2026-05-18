@@ -7,9 +7,9 @@ export default defineConfig({
   server: {
     port: 5172,
     proxy: {
-      // Same-origin `/api` in dev → Laravel `php artisan serve` (default :8000)
+      // Same-origin `/api` in dev → AGC Laravel API (port 8201; 8000/8001 often used by other XAMPP projects)
       '/api': {
-        target: 'http://127.0.0.1:8000',
+        target: 'http://127.0.0.1:8201',
         changeOrigin: true,
       },
     },

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\ChatConversation;
+use App\Models\ChatLead;
 use App\Models\ChatMessage;
+use App\Models\FeedbackEntry;
+use App\Models\NewsletterSubscriber;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -43,6 +47,10 @@ class AdminPortalController extends Controller
                 'total_messages' => $totalMessages,
                 'total_sessions' => $totalSessions,
                 'messages_today' => $messagesToday,
+                'total_leads' => ChatLead::query()->count(),
+                'total_feedback' => FeedbackEntry::query()->count(),
+                'total_announcements' => Announcement::query()->count(),
+                'total_subscribers' => NewsletterSubscriber::query()->count(),
             ],
             'recent_messages' => $recentMessages,
         ]);

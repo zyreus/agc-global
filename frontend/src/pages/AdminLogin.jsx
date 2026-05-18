@@ -46,7 +46,12 @@ export default function AdminLogin() {
       if (!response.ok) {
         if ([502, 503, 504].includes(response.status)) {
           throw new Error(
-            'Cannot reach the API. From the repo root run npm run dev (starts Vite and Laravel), or run npm run dev:api in another terminal, then try again.',
+            'Cannot reach the API. From the repo root run npm run dev:full (starts Vite and Laravel on port 8201), then open http://localhost:5172/admin',
+          )
+        }
+        if (response.status === 405) {
+          throw new Error(
+            'Login API returned 405 — another app may be using the same port. Stop other Laravel servers, restart with npm run dev:full from the agc-global folder, then try again.',
           )
         }
         throw new Error(data?.message || `Login failed (${response.status}).`)
@@ -69,12 +74,16 @@ export default function AdminLogin() {
   }
 
   return (
-    <main className="flex-1 bg-brand-background-alt">
-      <section className="app-container flex min-h-[calc(100vh-80px)] items-center justify-center py-10 sm:py-14">
-        <div className="w-full max-w-xl rounded-2xl border border-black/5 bg-white p-8 shadow-[0_18px_45px_rgba(0,0,0,0.08)] sm:p-10">
+    <main className="relative flex-1 overflow-hidden bg-brand-background-alt dark:bg-brand-night">
+      <div className="pointer-events-none absolute inset-0 opacity-40 dark:opacity-25" aria-hidden>
+        <div className="absolute -left-24 top-20 h-72 w-72 rounded-full bg-brand-primary/20 blur-3xl dark:bg-brand-primary/15" />
+        <div className="absolute -right-10 bottom-10 h-80 w-80 rounded-full bg-brand-secondary/15 blur-3xl dark:bg-brand-gold/10" />
+      </div>
+      <section className="app-container relative flex min-h-[calc(100vh-80px)] items-center justify-center py-10 sm:py-14">
+        <div className="glass-card w-full max-w-xl border-black/10 p-8 sm:p-10 dark:border-white/10">
           <p className="text-[11px] font-bold tracking-[0.45em] text-brand-primary">ADMIN PORTAL</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text">Admin Sign In</h1>
-          <p className="mt-2 text-sm text-brand-text/65">Use your administrator credentials.</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white">Admin Sign In</h1>
+          <p className="mt-2 text-sm text-brand-text/65 dark:text-white/55">Use your administrator credentials.</p>
 
           <form className="mt-6 space-y-4" onSubmit={onSubmit}>
             <div>
@@ -83,7 +92,7 @@ export default function AdminLogin() {
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
                 placeholder="Username or email"
-                className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm text-brand-text outline-none transition focus:border-brand-primary/60 focus:ring-2 focus:ring-brand-primary/20"
+                className="w-full rounded-xl border border-black/10 bg-white/90 px-4 py-3 text-sm text-brand-text outline-none transition focus:border-brand-primary/60 focus:ring-2 focus:ring-brand-primary/20 dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/35"
               />
             </div>
 
@@ -94,7 +103,7 @@ export default function AdminLogin() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 autoFocus
-                className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 pr-12 text-sm text-brand-text outline-none transition focus:border-brand-primary/60 focus:ring-2 focus:ring-brand-primary/20"
+                className="w-full rounded-xl border border-black/10 bg-white/90 px-4 py-3 pr-12 text-sm text-brand-text outline-none transition focus:border-brand-primary/60 focus:ring-2 focus:ring-brand-primary/20 dark:border-white/15 dark:bg-white/5 dark:text-white dark:placeholder:text-white/35"
               />
               <button
                 type="button"
@@ -133,7 +142,7 @@ export default function AdminLogin() {
             </div>
 
             {error && (
-              <div className="rounded-xl border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700">
+              <div className="rounded-xl border border-red-200/80 bg-red-50 px-3 py-2 text-sm font-medium text-red-800 dark:border-red-500/35 dark:bg-red-950/50 dark:text-red-200">
                 {error}
               </div>
             )}
@@ -149,14 +158,21 @@ export default function AdminLogin() {
             <button
               type="button"
               onClick={() => navigate('/', { replace: true })}
-              className="inline-flex w-full items-center justify-center rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-brand-text transition hover:bg-black/5"
+              className="inline-flex w-full items-center justify-center rounded-xl border border-black/10 bg-white/80 px-5 py-3 text-sm font-semibold text-brand-text transition hover:bg-black/5 dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
             >
               Back to website
             </button>
 
-            <p className="pt-2 text-xs text-brand-text/50">
-              Admin access only.
-            </p>
+            {import.meta.env.DEV && (
+              <p className="pt-2 text-xs text-brand-text/50">
+                Local dev: use <span className="font-mono">admin</span> / <span className="font-mono">admin123</span> or{' '}
+                <span className="font-mono">AGCTekadmin</span> / <span className="font-mono">ACTek_@dm1n</span> after{' '}
+                <span className="font-mono">npm run dev:full</span>.
+              </p>
+            )}
+            {!import.meta.env.DEV && (
+              <p className="pt-2 text-xs text-brand-text/50">Admin access only.</p>
+            )}
           </form>
         </div>
       </section>
