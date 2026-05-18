@@ -68,6 +68,11 @@ export function laravelApiBases() {
     addBase(bases, '')
   }
 
+  if (typeof window !== 'undefined' && import.meta.env.PROD && !onPublicHost && !explicit) {
+    addBase(bases, '')
+    addBase(bases, normalizeLaravelApiBase('http://127.0.0.1:8020'))
+  }
+
   if (bases.length === 0) {
     addBase(bases, '')
   }

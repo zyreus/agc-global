@@ -33,17 +33,19 @@ function App() {
         {!isAdminRoute && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminShell />}>
-            <Route path="dashboard" element={<AdminOverview />} />
-            <Route path="messages" element={<AdminMessages />} />
-            <Route path="crm" element={<AdminCrm />} />
-            <Route path="leads" element={<AdminLeads />} />
-            <Route path="feedback" element={<AdminFeedback />} />
-            <Route path="settings" element={<AdminSettings />} />
-            <Route path="announcements" element={<AdminAnnouncements />} />
-            <Route path="subscribers" element={<AdminSubscribers />} />
-            <Route path="workspace/:slug" element={<AdminModulePlaceholder />} />
+          <Route path="/admin">
+            <Route index element={<AdminLogin />} />
+            <Route element={<AdminShell />}>
+              <Route path="dashboard" element={<AdminOverview />} />
+              <Route path="messages" element={<AdminMessages />} />
+              <Route path="crm" element={<AdminCrm />} />
+              <Route path="leads" element={<AdminLeads />} />
+              <Route path="feedback" element={<AdminFeedback />} />
+              <Route path="settings" element={<AdminSettings />} />
+              <Route path="announcements" element={<AdminAnnouncements />} />
+              <Route path="subscribers" element={<AdminSubscribers />} />
+              <Route path="workspace/:slug" element={<AdminModulePlaceholder />} />
+            </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

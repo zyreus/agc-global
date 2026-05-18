@@ -18,6 +18,8 @@ function resolveApiBaseUrl() {
       host === '[::1]' ||
       host === '0.0.0.0'
     if (!loopback) return '/api'
+    // XAMPP / local Apache: Laravel is served at same origin under /api
+    return '/api'
   }
 
   return 'http://127.0.0.1:8201/api'

@@ -9,6 +9,7 @@ const quickLinks = [
   { href: '#about', label: 'About' },
   { href: '#faq', label: 'FAQ' },
   { href: '#insights', label: 'Resources' },
+  { href: '#updates', label: 'Careers & News' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -66,6 +67,7 @@ export default function Footer() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-gold">Contact</p>
               <ul className="mt-4 space-y-2 text-sm text-white/75">
                 <li>{COMPANY.hours}</li>
+                <li>Support windows available by agreement</li>
                 <li>
                   <span className="font-semibold text-white">Email:</span>{' '}
                   <a className="underline decoration-white/30 underline-offset-4 hover:text-white" href={`mailto:${COMPANY.email}`}>
@@ -85,7 +87,7 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-gold">Get started</p>
             <p className="mt-3 text-sm text-white/70">
-              Request a consultation or book a demo of our enterprise platforms.
+              Request a consultation, view careers &amp; news, or book a demo of our enterprise platforms.
             </p>
             <a
               href="#contact"
@@ -104,6 +106,9 @@ export default function Footer() {
                 </a>
                 <a className="hover:text-white" href="#insights">
                   Insights
+                </a>
+                <a className="hover:text-white" href="#updates">
+                  Careers &amp; News
                 </a>
               </div>
             </div>

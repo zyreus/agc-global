@@ -51,6 +51,14 @@ class AdminPortalController extends Controller
                 'total_feedback' => FeedbackEntry::query()->count(),
                 'total_announcements' => Announcement::query()->count(),
                 'total_subscribers' => NewsletterSubscriber::query()->count(),
+                'published_careers' => Announcement::query()
+                    ->where('is_published', true)
+                    ->where('type', Announcement::TYPE_CAREER)
+                    ->count(),
+                'published_news' => Announcement::query()
+                    ->where('is_published', true)
+                    ->where('type', Announcement::TYPE_NEWS)
+                    ->count(),
             ],
             'recent_messages' => $recentMessages,
         ]);

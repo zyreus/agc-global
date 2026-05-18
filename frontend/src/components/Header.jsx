@@ -66,6 +66,7 @@ export default function Header() {
     { id: 'industries', label: 'Industries' },
     { id: 'about', label: 'About' },
     { id: 'insights', label: 'Resources' },
+    { id: 'updates', label: 'Careers & News' },
   ]
 
   return (

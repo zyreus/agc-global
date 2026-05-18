@@ -9,7 +9,7 @@ export const COMPANY = {
   whatsapp: 'https://wa.me/639190675099',
   website: 'https://www.amalgatedcomputek.com',
   location: 'Philippines',
-  hours: 'Mon–Fri: 9:00 AM – 6:00 PM (PH)',
+  hours: 'Mon–Fri: 8:00 AM – 5:00 PM (PH)',
 }
 
 export const HERO_STATS = [
@@ -413,7 +413,6 @@ export const CTA_BLOCKS = {
 }
 
 export const HERO = {
-  eyebrow: 'AGC Technologies & Business Solutions',
   headline: 'Innovative IT Solutions',
   headlineAccent: 'That Scale Your Business',
   rotatingWords: ['at enterprise speed', 'with security built in', 'across cloud & on-prem', 'for measurable ROI'],

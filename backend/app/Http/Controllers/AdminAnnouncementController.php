@@ -13,7 +13,7 @@ class AdminAnnouncementController extends Controller
         $announcements = Announcement::query()
             ->latest('published_at')
             ->latest('id')
-            ->get(['id', 'title', 'content', 'is_published', 'published_at', 'created_at']);
+            ->get(['id', 'title', 'content', 'type', 'is_published', 'published_at', 'created_at']);
 
         return response()->json(['announcements' => $announcements]);
     }
@@ -23,12 +23,14 @@ class AdminAnnouncementController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:190'],
             'content' => ['required', 'string', 'max:4000'],
+            'type' => ['nullable', 'string', 'in:news,career'],
             'is_published' => ['nullable', 'boolean'],
         ]);
 
         $announcement = Announcement::query()->create([
             'title' => trim($data['title']),
             'content' => trim($data['content']),
+            'type' => $data['type'] ?? Announcement::TYPE_NEWS,
             'is_published' => (bool)($data['is_published'] ?? true),
             'published_at' => now(),
         ]);
@@ -41,12 +43,14 @@ class AdminAnnouncementController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:190'],
             'content' => ['required', 'string', 'max:4000'],
+            'type' => ['nullable', 'string', 'in:news,career'],
             'is_published' => ['nullable', 'boolean'],
         ]);
 
         $announcement->update([
             'title' => trim($data['title']),
             'content' => trim($data['content']),
+            'type' => $data['type'] ?? $announcement->type,
             'is_published' => (bool)($data['is_published'] ?? true),
             'published_at' => $announcement->published_at ?? now(),
         ]);

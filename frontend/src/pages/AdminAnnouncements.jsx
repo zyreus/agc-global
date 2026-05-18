@@ -2,7 +2,16 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { adminApi, clearAdminToken } from '../lib/adminPortalApi.js'
 
-const EMPTY_FORM = { title: '', content: '', is_published: true }
+const EMPTY_FORM = { title: '', content: '', type: 'news', is_published: true }
+
+const TYPE_OPTIONS = [
+  { value: 'news', label: 'News' },
+  { value: 'career', label: 'Career opening' },
+]
+
+function typeLabel(type) {
+  return type === 'career' ? 'Career' : 'News'
+}
 
 export default function AdminAnnouncements() {
   const navigate = useNavigate()
@@ -21,7 +30,7 @@ export default function AdminAnnouncements() {
         navigate('/admin', { replace: true })
         return
       }
-      setError('Could not load announcements.')
+      setError('Could not load careers and news.')
       setLoading(false)
       return
     }
@@ -40,6 +49,7 @@ export default function AdminAnnouncements() {
     const payload = {
       title: form.title.trim(),
       content: form.content.trim(),
+      type: form.type,
       is_published: form.is_published,
     }
     if (!payload.title || !payload.content) return
@@ -62,7 +72,7 @@ export default function AdminAnnouncements() {
         navigate('/admin', { replace: true })
         return
       }
-      setError(result.data?.message || 'Could not save announcement.')
+      setError(result.data?.message || 'Could not save item.')
       return
     }
 
@@ -76,6 +86,7 @@ export default function AdminAnnouncements() {
     setForm({
       title: item.title ?? '',
       content: item.content ?? '',
+      type: item.type === 'career' ? 'career' : 'news',
       is_published: Boolean(item.is_published),
     })
   }
@@ -88,7 +99,7 @@ export default function AdminAnnouncements() {
         navigate('/admin', { replace: true })
         return
       }
-      setError('Could not delete announcement.')
+      setError('Could not delete item.')
       return
     }
     await load()
@@ -99,8 +110,10 @@ export default function AdminAnnouncements() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Admin</p>
-          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-brand-text">Announcements</h1>
-          <p className="mt-2 text-sm text-brand-text/70">Create and manage website announcements.</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-brand-text">Careers &amp; News</h1>
+          <p className="mt-2 text-sm text-brand-text/70">
+            Published items appear on the public website under Careers &amp; News.
+          </p>
         </div>
         <button type="button" onClick={load} className="rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-brand-text hover:bg-black/5">
           Refresh
@@ -111,20 +124,34 @@ export default function AdminAnnouncements() {
 
       <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
         <div className="rounded-2xl border border-black/10 bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-          <p className="text-sm font-semibold text-brand-text">{editingId ? 'Edit announcement' : 'Create announcement'}</p>
+          <p className="text-sm font-semibold text-brand-text">{editingId ? 'Edit item' : 'Create item'}</p>
           <form className="mt-4 space-y-3" onSubmit={submit}>
+            <label className="block text-xs font-semibold uppercase tracking-wide text-brand-text/60">
+              Type
+              <select
+                value={form.type}
+                onChange={(e) => setForm((f) => ({ ...f, type: e.target.value }))}
+                className="mt-1 w-full rounded-xl border border-black/15 bg-white px-3 py-2 text-sm outline-none ring-brand-primary focus:ring-2"
+              >
+                {TYPE_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
-              placeholder="Announcement title"
+              placeholder="Title"
               className="w-full rounded-xl border border-black/15 bg-white px-3 py-2 text-sm outline-none ring-brand-primary focus:ring-2"
             />
             <textarea
               rows={5}
               value={form.content}
               onChange={(e) => setForm((f) => ({ ...f, content: e.target.value }))}
-              placeholder="Announcement content"
+              placeholder="Description"
               className="w-full rounded-xl border border-black/15 bg-white px-3 py-2 text-sm outline-none ring-brand-primary focus:ring-2"
             />
             <label className="inline-flex items-center gap-2 text-sm text-brand-text/80">
@@ -133,11 +160,11 @@ export default function AdminAnnouncements() {
                 checked={form.is_published}
                 onChange={(e) => setForm((f) => ({ ...f, is_published: e.target.checked }))}
               />
-              Published
+              Published on website
             </label>
             <div className="flex gap-2">
               <button type="submit" className="rounded-xl bg-brand-primary px-4 py-2 text-sm font-semibold text-white hover:bg-brand-primary-hover">
-                {editingId ? 'Save changes' : 'Publish announcement'}
+                {editingId ? 'Save changes' : 'Publish'}
               </button>
               {editingId && (
                 <button
@@ -156,16 +183,28 @@ export default function AdminAnnouncements() {
         </div>
 
         <div className="rounded-2xl border border-black/10 bg-white p-5 shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
-          <p className="text-sm font-semibold text-brand-text">Saved announcements</p>
+          <p className="text-sm font-semibold text-brand-text">Saved items</p>
           <div className="mt-4 space-y-3">
-            {!loading && announcements.length === 0 && <p className="text-sm text-brand-text/70">No announcements found.</p>}
+            {!loading && announcements.length === 0 && <p className="text-sm text-brand-text/70">No items yet.</p>}
             {announcements.map((item) => (
               <article key={item.id} className="rounded-xl border border-black/10 bg-brand-background-alt p-3">
-                <p className="text-sm font-semibold text-brand-text">{item.title}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-brand-primary/10 px-2 py-0.5 text-xs font-semibold text-brand-primary">
+                    {typeLabel(item.type)}
+                  </span>
+                  {!item.is_published && (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800">Draft</span>
+                  )}
+                </div>
+                <p className="mt-2 text-sm font-semibold text-brand-text">{item.title}</p>
                 <p className="mt-1 text-sm text-brand-text/75">{item.content}</p>
                 <div className="mt-3 flex gap-2">
-                  <button type="button" onClick={() => edit(item)} className="rounded-lg border border-black/10 bg-white px-3 py-1.5 text-xs font-semibold text-brand-text hover:bg-black/5">Edit</button>
-                  <button type="button" onClick={() => remove(item.id)} className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100">Delete</button>
+                  <button type="button" onClick={() => edit(item)} className="rounded-lg border border-black/10 bg-white px-3 py-1.5 text-xs font-semibold text-brand-text hover:bg-black/5">
+                    Edit
+                  </button>
+                  <button type="button" onClick={() => remove(item.id)} className="rounded-lg border border-red-200 bg-red-50 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-100">
+                    Delete
+                  </button>
                 </div>
               </article>
             ))}
@@ -175,4 +214,3 @@ export default function AdminAnnouncements() {
     </section>
   )
 }
-

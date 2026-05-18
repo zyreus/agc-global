@@ -6,6 +6,7 @@ import 'swiper/css/pagination'
 
 import ChatWidget from '../components/ChatWidget.jsx'
 import { API_BASE_URL } from '../lib/config.js'
+import { fetchPublicApi } from '../lib/publicApi.js'
 import {
   ABOUT_CONTENT,
   COMPANY,
@@ -44,6 +45,39 @@ function getLeadSessionId() {
     sessionStorage.setItem(LEAD_SESSION_KEY, id)
   }
   return id
+}
+
+function formatPublishedDate(value) {
+  if (!value) return null
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return null
+  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
+}
+
+function AnnouncementCard({ item, variant }) {
+  const dateLabel = formatPublishedDate(item.published_at)
+  const isCareer = variant === 'career' || item.type === 'career'
+
+  return (
+    <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="rounded-full bg-brand-primary/10 px-2.5 py-0.5 text-xs font-semibold text-brand-primary dark:bg-brand-gold/15 dark:text-brand-gold">
+          {isCareer ? 'Career' : 'News'}
+        </span>
+        {dateLabel && <time className="text-xs text-brand-text/55 dark:text-white/50">{dateLabel}</time>}
+      </div>
+      <p className="mt-3 text-sm font-semibold text-brand-text dark:text-white">{item.title}</p>
+      <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{item.content}</p>
+      {isCareer && (
+        <a
+          href="#contact"
+          className="mt-4 inline-flex items-center text-sm font-semibold text-brand-primary transition hover:text-brand-primary-hover dark:text-brand-gold dark:hover:text-brand-gold/80"
+        >
+          Apply via contact →
+        </a>
+      )}
+    </article>
+  )
 }
 
 function ServiceIcon({ name, className }) {
@@ -134,6 +168,8 @@ function KpiCounter({ label, value, suffix, ariaLabel }) {
 
 export default function Home() {
   const [announcements, setAnnouncements] = useState([])
+  const [announcementsLoading, setAnnouncementsLoading] = useState(true)
+  const [announcementsError, setAnnouncementsError] = useState(false)
   const [newsletterName, setNewsletterName] = useState('')
   const [newsletterEmail, setNewsletterEmail] = useState('')
   const [newsletterLoading, setNewsletterLoading] = useState(false)
@@ -158,18 +194,28 @@ export default function Home() {
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/announcements`)
-        const data = await response.json().catch(() => ({}))
-        if (!cancelled) setAnnouncements(data.announcements ?? [])
-      } catch {
-        if (!cancelled) setAnnouncements([])
+      setAnnouncementsLoading(true)
+      setAnnouncementsError(false)
+      const result = await fetchPublicApi('/announcements')
+      if (!cancelled) {
+        setAnnouncements(result.ok ? result.data?.announcements ?? [] : [])
+        setAnnouncementsError(!result.ok)
+        setAnnouncementsLoading(false)
       }
     })()
     return () => {
       cancelled = true
     }
   }, [])
+
+  const careerPosts = useMemo(
+    () => announcements.filter((item) => item.type === 'career'),
+    [announcements]
+  )
+  const newsPosts = useMemo(
+    () => announcements.filter((item) => item.type !== 'career'),
+    [announcements]
+  )
 
   const structuredData = useMemo(
     () => ({
@@ -226,7 +272,7 @@ export default function Home() {
     setNewsletterLoading(true)
     setNewsletterMessage('')
     try {
-      const response = await fetch(`${API_BASE_URL}/newsletter/subscribe`, {
+      const result = await fetchPublicApi('/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -234,8 +280,8 @@ export default function Home() {
           email: newsletterEmail.trim(),
         }),
       })
-      const data = await response.json().catch(() => ({}))
-      if (!response.ok) throw new Error(data?.message || 'Could not subscribe right now.')
+      const data = result.data
+      if (!result.ok) throw new Error(data?.message || 'Could not subscribe right now.')
       setNewsletterMessage(data?.message || 'Subscribed successfully.')
       setNewsletterName('')
       setNewsletterEmail('')
@@ -782,20 +828,58 @@ export default function Home() {
                 <p className="mt-2 text-sm text-brand-text/75 dark:text-white/70">{post.excerpt}</p>
               </article>
             ))}
-            {announcements.length === 0 && (
-              <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
-                <p className="text-sm text-brand-text/70 dark:text-white/65">No announcements yet.</p>
-              </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="updates" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
+        <div className="app-container grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Careers &amp; news</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white">Open roles &amp; company updates</h2>
+            <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-text/75 dark:text-white/70">
+              Content here is managed in the admin portal and published to this page automatically.
+            </p>
+
+            {announcementsLoading && (
+              <p className="mt-4 text-sm text-brand-text/60 dark:text-white/55">Loading careers and news…</p>
             )}
-            {announcements.map((item) => (
-              <article key={item.id} className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
-                <p className="text-sm font-semibold text-brand-text dark:text-white">{item.title}</p>
-                <p className="mt-2 text-sm text-brand-text/75 dark:text-white/70">{item.content}</p>
-              </article>
-            ))}
+            {announcementsError && !announcementsLoading && (
+              <p className="mt-4 text-sm text-amber-700 dark:text-amber-200">
+                Could not load updates. Ensure the API is running, then refresh this page.
+              </p>
+            )}
+
+            <div className="mt-8">
+              <h3 className="text-lg font-semibold text-brand-text dark:text-white">Careers</h3>
+              <div className="mt-4 space-y-4">
+                {careerPosts.length === 0 && (
+                  <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
+                    <p className="text-sm text-brand-text/70 dark:text-white/65">No open roles posted right now. Check back soon.</p>
+                  </article>
+                )}
+                {careerPosts.map((item) => (
+                  <AnnouncementCard key={item.id} item={item} variant="career" />
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10">
+              <h3 className="text-lg font-semibold text-brand-text dark:text-white">News</h3>
+              <div className="mt-4 space-y-4">
+                {newsPosts.length === 0 && (
+                  <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
+                    <p className="text-sm text-brand-text/70 dark:text-white/65">No news posts yet.</p>
+                  </article>
+                )}
+                {newsPosts.map((item) => (
+                  <AnnouncementCard key={item.id} item={item} variant="news" />
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-white p-7 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none lg:col-start-2 lg:row-start-2 lg:row-span-2 lg:self-start">
+          <div className="rounded-3xl border border-black/10 bg-white p-7 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none lg:col-start-2 lg:row-start-1 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Newsletter</p>
             <h3 className="mt-3 text-2xl font-semibold tracking-tight text-brand-text dark:text-white">Lead magnet: stay ahead of releases</h3>
             <p className="mt-2 text-sm leading-relaxed text-brand-text/75 dark:text-white/70">

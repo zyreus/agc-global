@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+# Project PM2 (local PM2_HOME + Windows pipes). From repo root: ./scripts/pm2 start all
+ROOT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+exec node "$ROOT_DIR/scripts/pm2-with-project-pipes.mjs" pm2 "$@"

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { clearAdminToken, fetchAdminOverview } from '../lib/adminPortalApi.js'
+import { resolveRouterBasename } from '../lib/routerBasename.js'
 
 function KpiCard({ label, value, hint, accent }) {
   return (
@@ -59,6 +60,7 @@ export default function AdminOverview() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [data, setData] = useState(null)
+  const publicUpdatesUrl = `${resolveRouterBasename() ?? ''}/#updates`
 
   const load = async () => {
     setLoading(true)
@@ -131,9 +133,10 @@ export default function AdminOverview() {
         <KpiCard label="Captured leads" value={stats?.total_leads ?? 0} hint="From website & chat" accent="bg-sky-500/90" />
       </div>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <KpiCard label="Feedback entries" value={stats?.total_feedback ?? 0} hint="Customer voice" />
-        <KpiCard label="Announcements" value={stats?.total_announcements ?? 0} hint="Careers & news" />
+        <KpiCard label="Live careers" value={stats?.published_careers ?? 0} hint="Published on website" />
+        <KpiCard label="Live news" value={stats?.published_news ?? 0} hint="Published on website" />
         <KpiCard label="Newsletter subscribers" value={stats?.total_subscribers ?? 0} hint="Audience growth" />
       </div>
 
