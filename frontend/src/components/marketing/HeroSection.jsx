@@ -22,12 +22,8 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-night" />
       </div>
 
-      <div className="app-container relative">
-        <p className="text-center text-xs font-semibold uppercase tracking-[0.28em] text-brand-gold sm:text-left">
-          {HERO.eyebrow}
-        </p>
-
-        <div className="mx-auto mt-8 max-w-4xl text-center lg:mt-10">
+      <div className="app-container relative pt-16 sm:pt-20 lg:pt-24">
+        <div className="mx-auto max-w-4xl text-center">
           <h1 className="saas-headline text-white">
             {HERO.headline}
             <span className="mt-2 block text-brand-primary">{HERO.headlineAccent}</span>
