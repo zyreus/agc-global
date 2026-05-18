@@ -373,29 +373,109 @@ export const FAQ_ITEMS = [
 export const INSIGHTS_POSTS = [
   {
     id: 'i1',
-    category: 'Strategy',
-    title: 'Why enterprise software fails — and how to fix it',
-    excerpt: 'The gap between business requirements and engineering delivery is the #1 cause of project failure. Here is how structured discovery prevents it.',
-    date: '2026-05-01',
+    category: 'Lending',
+    title: 'Amalgated Lending: modernizing loan operations end-to-end',
+    excerpt:
+      'How regulated lenders move from spreadsheet-heavy workflows to auditable origination, underwriting support, and portfolio dashboards.',
+    date: '2026-05-12',
     readTime: '6 min',
+    featured: true,
+    icon: 'chart',
+    gradient: 'from-orange-500/25 via-amber-400/15 to-slate-50',
   },
   {
     id: 'i2',
-    category: 'Security',
-    title: 'Security-first delivery: what it means in practice',
+    category: 'Compliance',
+    title: 'Security-first delivery for financial institutions',
     excerpt: 'From RBAC design to backup testing — a practical checklist for organizations evaluating technology partners.',
     date: '2026-04-15',
     readTime: '5 min',
+    featured: false,
+    icon: 'shield',
+    gradient: 'from-slate-200 via-orange-50 to-white',
   },
   {
     id: 'i3',
-    category: 'HR Tech',
+    category: 'Product',
     title: 'SmartDTR: digitizing workforce timekeeping at scale',
     excerpt: 'How digital time and attendance reduces payroll errors, improves compliance, and gives HR teams real-time visibility.',
     date: '2026-03-28',
     readTime: '4 min',
+    featured: false,
+    icon: 'users',
+    gradient: 'from-amber-100/80 via-white to-orange-50/60',
+  },
+  {
+    id: 'i4',
+    category: 'Strategy',
+    title: 'Why enterprise software fails — and how to fix it',
+    excerpt:
+      'The gap between business requirements and engineering delivery is the #1 cause of project failure. Structured discovery closes it.',
+    date: '2026-05-01',
+    readTime: '6 min',
+    featured: false,
+    icon: 'layers',
+    gradient: 'from-slate-100 via-orange-50/40 to-white',
   },
 ]
+
+export const CAREERS_NEWS = {
+  eyebrow: 'Careers & News',
+  headline: 'Build with us. Stay ahead of what matters.',
+  subline:
+    'Explore opportunities across the Amalgated ecosystem — from Amalgated Lending and enterprise platforms to the teams powering regulated, high-trust technology.',
+  growthMessage:
+    'We are expanding engineering, product, and operations capacity to support lending, property, and enterprise clients across the Philippines and beyond.',
+  cultureSnippet:
+    'We hire builders who care about clarity, compliance, and craft — teams that ship with discipline and communicate with transparency.',
+  resumeCta: 'Submit Resume for Future Opportunities',
+  departments: ['Engineering', 'Product & Design', 'Lending Operations', 'Compliance & Risk', 'Customer Success'],
+  hiringProcess: [
+    { step: '01', title: 'Application review', detail: 'We review every profile within 5 business days.' },
+    { step: '02', title: 'Skills conversation', detail: 'A focused discussion on experience, values, and role fit.' },
+    { step: '03', title: 'Technical / case review', detail: 'Role-appropriate exercise or portfolio walkthrough.' },
+    { step: '04', title: 'Team & leadership meet', detail: 'Meet stakeholders and align on expectations.' },
+    { step: '05', title: 'Offer & onboarding', detail: 'Structured onboarding with mentors and clear 30/60/90 goals.' },
+  ],
+  companyStats: [
+    { value: '210+', label: 'Projects delivered' },
+    { value: '98%', label: 'Client satisfaction' },
+    { value: '12+', label: 'Years combined expertise' },
+    { value: '24/7', label: 'Platform monitoring' },
+  ],
+  achievements: [
+    { title: 'Lending platform rollout', detail: 'End-to-end loan workflow adopted across multi-branch operations.' },
+    { title: 'SOC-ready practices', detail: 'Security-first delivery patterns for regulated environments.' },
+    { title: 'Enterprise HRIS scale', detail: 'SmartDTR deployed for workforce compliance at scale.' },
+  ],
+  upcomingEvents: [
+    { date: 'Jun 12, 2026', title: 'Fintech operations webinar', type: 'Virtual' },
+    { date: 'Jul 03, 2026', title: 'Lending platform live demo', type: 'By request' },
+    { date: 'Aug 18, 2026', title: 'Careers open house', type: 'Hybrid' },
+  ],
+  featuredServices: [
+    { title: 'Amalgated Lending', href: '#portfolio', desc: 'Origination to collections' },
+    { title: 'SmartDTR HRIS', href: '#portfolio', desc: 'Workforce compliance' },
+    { title: 'Enterprise integrations', href: '#solutions', desc: 'APIs & automation' },
+  ],
+  socialLinks: [
+    { label: 'LinkedIn', href: 'https://www.linkedin.com', external: true },
+    { label: 'Facebook', href: 'https://www.facebook.com', external: true },
+  ],
+  newsletter: {
+    title: 'Stay updated with financial insights & company updates',
+    subline: 'Curated releases, product updates, and lending industry perspectives — no spam.',
+    benefits: [
+      'Product release notes & platform updates',
+      'Lending & compliance insights for operators',
+      'Career openings before public listings',
+    ],
+    privacy: 'We respect your inbox. Unsubscribe anytime. No third-party sharing.',
+    socialProof: '2,400+ professionals already subscribed',
+    resourceLabel: 'Download: Lending ops readiness checklist',
+    resourceHref: '#contact',
+  },
+}
 
 export const CTA_BLOCKS = {
   primary: {

@@ -8,8 +8,7 @@ const quickLinks = [
   { href: '#industries', label: 'Industries' },
   { href: '#about', label: 'About' },
   { href: '#faq', label: 'FAQ' },
-  { href: '#insights', label: 'Resources' },
-  { href: '#updates', label: 'Careers & News' },
+  { href: '#careers-news', label: 'Careers & News' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -104,10 +103,7 @@ export default function Footer() {
                 <a className="hover:text-white" href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
                   WhatsApp
                 </a>
-                <a className="hover:text-white" href="#insights">
-                  Insights
-                </a>
-                <a className="hover:text-white" href="#updates">
+                <a className="hover:text-white" href="#careers-news">
                   Careers &amp; News
                 </a>
               </div>

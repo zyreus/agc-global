@@ -65,8 +65,7 @@ export default function Header() {
     { id: 'portfolio', label: 'Portfolio' },
     { id: 'industries', label: 'Industries' },
     { id: 'about', label: 'About' },
-    { id: 'insights', label: 'Resources' },
-    { id: 'updates', label: 'Careers & News' },
+    { id: 'careers-news', label: 'Careers & News' },
   ]
 
   return (

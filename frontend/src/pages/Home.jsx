@@ -1,4 +1,4 @@
-﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -16,7 +16,6 @@ import {
   FAQ_ITEMS,
   HERO_STATS,
   INDUSTRY_SOLUTIONS,
-  INSIGHTS_POSTS,
   MISSION_VISION,
   PARTNER_LABELS,
   PORTFOLIO_ITEMS,
@@ -33,6 +32,7 @@ import ProductShowcase from '../components/marketing/ProductShowcase.jsx'
 import IntegrationsSection from '../components/marketing/IntegrationsSection.jsx'
 import SolutionsSection from '../components/marketing/SolutionsSection.jsx'
 import CaseStudyMetrics from '../components/marketing/CaseStudyMetrics.jsx'
+import CareersNewsSection from '../components/marketing/CareersNewsSection.jsx'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js'
 import { useReveal } from '../hooks/useReveal.js'
 
@@ -47,38 +47,6 @@ function getLeadSessionId() {
   return id
 }
 
-function formatPublishedDate(value) {
-  if (!value) return null
-  const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return null
-  return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })
-}
-
-function AnnouncementCard({ item, variant }) {
-  const dateLabel = formatPublishedDate(item.published_at)
-  const isCareer = variant === 'career' || item.type === 'career'
-
-  return (
-    <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-brand-primary/10 px-2.5 py-0.5 text-xs font-semibold text-brand-primary dark:bg-brand-gold/15 dark:text-brand-gold">
-          {isCareer ? 'Career' : 'News'}
-        </span>
-        {dateLabel && <time className="text-xs text-brand-text/55 dark:text-white/50">{dateLabel}</time>}
-      </div>
-      <p className="mt-3 text-sm font-semibold text-brand-text dark:text-white">{item.title}</p>
-      <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{item.content}</p>
-      {isCareer && (
-        <a
-          href="#contact"
-          className="mt-4 inline-flex items-center text-sm font-semibold text-brand-primary transition hover:text-brand-primary-hover dark:text-brand-gold dark:hover:text-brand-gold/80"
-        >
-          Apply via contact →
-        </a>
-      )}
-    </article>
-  )
-}
 
 function ServiceIcon({ name, className }) {
   const cn = className ?? 'h-5 w-5'
@@ -170,11 +138,6 @@ export default function Home() {
   const [announcements, setAnnouncements] = useState([])
   const [announcementsLoading, setAnnouncementsLoading] = useState(true)
   const [announcementsError, setAnnouncementsError] = useState(false)
-  const [newsletterName, setNewsletterName] = useState('')
-  const [newsletterEmail, setNewsletterEmail] = useState('')
-  const [newsletterLoading, setNewsletterLoading] = useState(false)
-  const [newsletterMessage, setNewsletterMessage] = useState('')
-
   const [expandedServiceId, setExpandedServiceId] = useState(null)
   const [openFaqId, setOpenFaqId] = useState(null)
   const [serviceCompareTab, setServiceCompareTab] = useState('deliverables')
@@ -207,15 +170,6 @@ export default function Home() {
       cancelled = true
     }
   }, [])
-
-  const careerPosts = useMemo(
-    () => announcements.filter((item) => item.type === 'career'),
-    [announcements]
-  )
-  const newsPosts = useMemo(
-    () => announcements.filter((item) => item.type !== 'career'),
-    [announcements]
-  )
 
   const structuredData = useMemo(
     () => ({
@@ -265,33 +219,6 @@ export default function Home() {
     }
   }, [structuredData])
 
-  const subscribeNewsletter = async (event) => {
-    event.preventDefault()
-    if (!newsletterEmail.trim()) return
-
-    setNewsletterLoading(true)
-    setNewsletterMessage('')
-    try {
-      const result = await fetchPublicApi('/newsletter/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: newsletterName.trim() || undefined,
-          email: newsletterEmail.trim(),
-        }),
-      })
-      const data = result.data
-      if (!result.ok) throw new Error(data?.message || 'Could not subscribe right now.')
-      setNewsletterMessage(data?.message || 'Subscribed successfully.')
-      setNewsletterName('')
-      setNewsletterEmail('')
-    } catch (error) {
-      setNewsletterMessage(error.message)
-    } finally {
-      setNewsletterLoading(false)
-    }
-  }
-
   const filteredPortfolio = useMemo(() => {
     if (portfolioFilter === 'all') return PORTFOLIO_ITEMS
     return PORTFOLIO_ITEMS.filter((p) => p.category === portfolioFilter)
@@ -327,7 +254,7 @@ export default function Home() {
       })
       const data = await response.json().catch(() => ({}))
       if (!response.ok) throw new Error(data?.message || 'Could not send your inquiry right now.')
-      setContactMessageText('Thanks — your inquiry was received. Our team will follow up shortly.')
+      setContactMessageText('Thanks ? your inquiry was received. Our team will follow up shortly.')
       setContactStep(1)
       setContactName('')
       setContactEmail('')
@@ -375,7 +302,7 @@ export default function Home() {
               <h2 className="mt-2 text-xl font-semibold tracking-tight text-brand-text dark:text-white">Built for regulated, high-stakes environments</h2>
             </div>
             <p className="max-w-xl text-sm leading-relaxed text-brand-text/70 dark:text-white/65">
-              Representative sectors we design for — from compliance-heavy workflows to customer-facing digital products.
+              Representative sectors we design for ? from compliance-heavy workflows to customer-facing digital products.
             </p>
           </div>
 
@@ -449,7 +376,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Core services</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Nine pillars of enterprise delivery</h2>
               <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                From custom software and cloud infrastructure to HRIS SmartDTR and cybersecurity — explore our full service portfolio.
+                From custom software and cloud infrastructure to HRIS SmartDTR and cybersecurity ? explore our full service portfolio.
               </p>
             </div>
             <a
@@ -580,7 +507,7 @@ export default function Home() {
           <p className="section-eyebrow">Our expertise</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Deep technical capability across the stack</h2>
           <p className="mt-4 max-w-2xl text-base text-brand-text/75 dark:text-white/70">
-            Laravel, React, cloud infrastructure, AI automation, and domain-specific platforms — built for production, not prototypes.
+            Laravel, React, cloud infrastructure, AI automation, and domain-specific platforms ? built for production, not prototypes.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {EXPERTISE_AREAS.map((area) => (
@@ -632,7 +559,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Portfolio</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Web applications &amp; platforms we build</h2>
               <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                Flagship solutions across the Amalgated ecosystem — lending, property, HRIS, and enterprise operations.
+                Flagship solutions across the Amalgated ecosystem ? lending, property, HRIS, and enterprise operations.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -705,7 +632,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Why choose AGC</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Trust is earned through delivery discipline</h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                We combine product thinking with engineering execution — so stakeholders see progress early and users feel the difference in day-to-day workflows.
+                We combine product thinking with engineering execution ? so stakeholders see progress early and users feel the difference in day-to-day workflows.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -807,114 +734,11 @@ export default function Home() {
         secondaryLabel={CTA_BLOCKS.primary.secondaryLabel}
       />
 
-      <section id="insights" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
-        <div className="app-container grid gap-x-10 gap-y-3 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
-          <p className="section-eyebrow lg:col-start-1 lg:row-start-1">Blog &amp; insights</p>
-
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white lg:col-start-1 lg:row-start-2 lg:mt-0">
-            Insights &amp; announcements
-          </h2>
-
-          <div className="mt-6 space-y-4 lg:col-start-1 lg:row-start-3 lg:mt-6">
-            {INSIGHTS_POSTS.map((post) => (
-              <article key={post.id} className="glass-card p-6">
-                <div className="flex flex-wrap items-center gap-2 text-xs text-brand-text/60 dark:text-white/55">
-                  <span className="rounded-full bg-brand-primary/10 px-2.5 py-0.5 font-semibold text-brand-primary">{post.category}</span>
-                  <span>{post.date}</span>
-                  <span>Â·</span>
-                  <span>{post.readTime} read</span>
-                </div>
-                <h3 className="mt-3 text-base font-semibold text-brand-text dark:text-white">{post.title}</h3>
-                <p className="mt-2 text-sm text-brand-text/75 dark:text-white/70">{post.excerpt}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="updates" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
-        <div className="app-container grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Careers &amp; news</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white">Open roles &amp; company updates</h2>
-            <p className="mt-2 max-w-xl text-sm leading-relaxed text-brand-text/75 dark:text-white/70">
-              Content here is managed in the admin portal and published to this page automatically.
-            </p>
-
-            {announcementsLoading && (
-              <p className="mt-4 text-sm text-brand-text/60 dark:text-white/55">Loading careers and news…</p>
-            )}
-            {announcementsError && !announcementsLoading && (
-              <p className="mt-4 text-sm text-amber-700 dark:text-amber-200">
-                Could not load updates. Ensure the API is running, then refresh this page.
-              </p>
-            )}
-
-            <div className="mt-8">
-              <h3 className="text-lg font-semibold text-brand-text dark:text-white">Careers</h3>
-              <div className="mt-4 space-y-4">
-                {careerPosts.length === 0 && (
-                  <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
-                    <p className="text-sm text-brand-text/70 dark:text-white/65">No open roles posted right now. Check back soon.</p>
-                  </article>
-                )}
-                {careerPosts.map((item) => (
-                  <AnnouncementCard key={item.id} item={item} variant="career" />
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-10">
-              <h3 className="text-lg font-semibold text-brand-text dark:text-white">News</h3>
-              <div className="mt-4 space-y-4">
-                {newsPosts.length === 0 && (
-                  <article className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
-                    <p className="text-sm text-brand-text/70 dark:text-white/65">No news posts yet.</p>
-                  </article>
-                )}
-                {newsPosts.map((item) => (
-                  <AnnouncementCard key={item.id} item={item} variant="news" />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-3xl border border-black/10 bg-white p-7 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none lg:col-start-2 lg:row-start-1 lg:self-start">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Newsletter</p>
-            <h3 className="mt-3 text-2xl font-semibold tracking-tight text-brand-text dark:text-white">Lead magnet: stay ahead of releases</h3>
-            <p className="mt-2 text-sm leading-relaxed text-brand-text/75 dark:text-white/70">
-              Subscribe for service updates, security advisories (when applicable), and new engagement opportunities.
-            </p>
-
-            <form className="mt-6 space-y-3" onSubmit={subscribeNewsletter}>
-              <input
-                type="text"
-                value={newsletterName}
-                onChange={(e) => setNewsletterName(e.target.value)}
-                placeholder="Your name (optional)"
-                className="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
-              />
-              <input
-                type="email"
-                value={newsletterEmail}
-                onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="Your email"
-                required
-                className="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
-              />
-              <button
-                type="submit"
-                disabled={newsletterLoading}
-                className="inline-flex w-full items-center justify-center rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-primary-hover disabled:opacity-60"
-              >
-                {newsletterLoading ? 'Subscribing...' : 'Subscribe'}
-              </button>
-            </form>
-
-            {newsletterMessage && <p className="mt-3 text-sm text-brand-text/80 dark:text-white/70">{newsletterMessage}</p>}
-          </div>
-        </div>
-      </section>
+      <CareersNewsSection
+        announcements={announcements}
+        loading={announcementsLoading}
+        error={announcementsError}
+      />
 
       <section id="contact" className="border-t border-black/5 bg-brand-background py-16 dark:border-white/10 dark:bg-brand-night">
         <div className="app-container grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:grid-rows-[auto_auto_auto_minmax(280px,1fr)] lg:items-stretch">
@@ -1086,7 +910,7 @@ export default function Home() {
                   onChange={(e) => setContactMessage(e.target.value)}
                   rows={5}
                   className="w-full rounded-xl border border-black/15 px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
-                  placeholder="Goals, timelines, integrations, compliance needs…"
+                  placeholder="Goals, timelines, integrations, compliance needs?"
                 />
                 <div className="flex gap-3">
                   <button
@@ -1102,7 +926,7 @@ export default function Home() {
                     className="w-full rounded-xl bg-brand-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-primary-hover disabled:opacity-60"
                     onClick={submitInquiry}
                   >
-                    {contactLoading ? 'Sending…' : 'Submit inquiry'}
+                    {contactLoading ? 'Sending?' : 'Submit inquiry'}
                   </button>
                 </div>
               </div>
