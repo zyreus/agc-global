@@ -448,11 +448,6 @@ export const CAREERS_NEWS = {
     { title: 'SOC-ready practices', detail: 'Security-first delivery patterns for regulated environments.' },
     { title: 'Enterprise HRIS scale', detail: 'SmartDTR deployed for workforce compliance at scale.' },
   ],
-  upcomingEvents: [
-    { date: 'Jun 12, 2026', title: 'Fintech operations webinar', type: 'Virtual' },
-    { date: 'Jul 03, 2026', title: 'Lending platform live demo', type: 'By request' },
-    { date: 'Aug 18, 2026', title: 'Careers open house', type: 'Hybrid' },
-  ],
   featuredServices: [
     { title: 'Amalgated Lending', href: '#portfolio', desc: 'Origination to collections' },
     { title: 'SmartDTR HRIS', href: '#portfolio', desc: 'Workforce compliance' },

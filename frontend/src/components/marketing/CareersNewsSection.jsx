@@ -581,24 +581,6 @@ export default function CareersNewsSection({ announcements = [], loading = false
               </ul>
             </div>
 
-            <div className="rounded-3xl border border-black/8 bg-white p-5 shadow-soft dark:border-white/10 dark:bg-brand-navy/40">
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">Upcoming events</p>
-              <ul className="mt-4 space-y-3">
-                {CAREERS_NEWS.upcomingEvents.map((event) => (
-                  <li key={event.title} className="flex gap-3 rounded-2xl bg-brand-background/90 p-3 dark:bg-brand-night/40">
-                    <div className="flex h-10 w-10 shrink-0 flex-col items-center justify-center rounded-xl bg-brand-primary/10 text-center text-brand-primary">
-                      <span className="text-[10px] font-bold uppercase leading-none">{event.date.split(' ')[0]}</span>
-                      <span className="text-xs font-semibold leading-tight">{event.date.split(' ')[1]?.replace(',', '')}</span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-brand-text dark:text-white">{event.title}</p>
-                      <p className="text-xs text-brand-text/60 dark:text-white/55">{event.type}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
             <div className="rounded-3xl border border-black/8 bg-gradient-to-br from-brand-secondary to-brand-navy p-5 text-white shadow-soft">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-gold">Featured services</p>
               <ul className="mt-4 space-y-2">
