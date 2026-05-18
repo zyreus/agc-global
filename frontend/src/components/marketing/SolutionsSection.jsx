@@ -16,7 +16,7 @@ export default function SolutionsSection() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-2">
+        <div className="section-content-gap flex flex-wrap justify-center gap-2">
           {SERVICE_SOLUTIONS.map((s) => (
             <button
               key={s.id}
@@ -30,7 +30,7 @@ export default function SolutionsSection() {
         </div>
 
         {active && (
-          <div className="solution-panel mt-10">
+          <div className="solution-panel mt-8 sm:mt-10">
             <div className="grid gap-8 lg:grid-cols-3">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wider text-red-500 dark:text-red-400">Problem</p>

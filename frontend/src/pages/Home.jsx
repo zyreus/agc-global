@@ -294,7 +294,7 @@ export default function Home() {
       <IntegrationsSection />
       <CaseStudyMetrics />
 
-      <section id="partners" className="border-b border-black/5 bg-brand-background py-10 dark:border-white/10 dark:bg-brand-night">
+      <section id="partners" className="page-section-tight border-b border-black/5 bg-brand-background dark:border-white/10 dark:bg-brand-night">
         <div className="app-container">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -302,7 +302,7 @@ export default function Home() {
               <h2 className="mt-2 text-xl font-semibold tracking-tight text-brand-text dark:text-white">Built for regulated, high-stakes environments</h2>
             </div>
             <p className="max-w-xl text-sm leading-relaxed text-brand-text/70 dark:text-white/65">
-              Representative sectors we design for ? from compliance-heavy workflows to customer-facing digital products.
+              Representative sectors we design for ??????? from compliance-heavy workflows to customer-facing digital products.
             </p>
           </div>
 
@@ -319,8 +319,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about" className="bg-brand-background py-16 dark:bg-brand-night">
-        <div className="app-container grid gap-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] lg:items-start">
+      <section id="about" className="bg-brand-background page-section-surface">
+        <div className="app-container card-grid lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] lg:items-start">
           <div className="space-y-4">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">About AGC</p>
             <h2 className="text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">{ABOUT_CONTENT.headline}</h2>
@@ -344,11 +344,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="mission" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
+      <section id="mission" className="page-section-alt border-t border-black/5 dark:border-white/10">
         <div className="app-container">
           <p className="section-eyebrow">Mission &amp; Vision</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Purpose-driven technology partnership</h2>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="section-block card-grid lg:grid-cols-2">
             <article className="glass-card p-8">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">{MISSION_VISION.mission.title}</p>
               <p className="mt-4 text-base leading-relaxed text-brand-text/80 dark:text-white/75">{MISSION_VISION.mission.body}</p>
@@ -369,14 +369,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="services" className="hidden border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
+      <section id="services" className="hidden page-section-alt border-t border-black/5 dark:border-white/10">
         <div className="app-container">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Core services</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Nine pillars of enterprise delivery</h2>
               <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                From custom software and cloud infrastructure to HRIS SmartDTR and cybersecurity ? explore our full service portfolio.
+                From custom software and cloud infrastructure to HRIS SmartDTR and cybersecurity ??????? explore our full service portfolio.
               </p>
             </div>
             <a
@@ -387,7 +387,7 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="section-block card-grid sm:grid-cols-2 xl:grid-cols-3">
             {SERVICE_CATEGORIES.map((svc) => {
               const open = expandedServiceId === svc.id
               return (
@@ -448,7 +448,7 @@ export default function Home() {
             })}
           </div>
 
-          <div className="mt-12 rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none sm:p-8">
+          <div className="section-block rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none sm:p-8">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Service comparison</p>
@@ -486,14 +486,17 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="mt-10">
+            <div className="mt-8">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Process workflow</p>
-              <div className="mt-4 grid gap-4 md:grid-cols-5">
+              <div className="mt-4 grid auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
                 {PROCESS_STEPS.map((step, idx) => (
-                  <div key={step.title} className="relative rounded-2xl border border-black/10 bg-brand-background p-4 dark:border-white/10 dark:bg-brand-night/40">
+                  <div
+                    key={step.title}
+                    className="relative flex h-full min-h-0 flex-col rounded-2xl border border-black/10 bg-brand-background p-4 dark:border-white/10 dark:bg-brand-night/40"
+                  >
                     <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-primary">Step {idx + 1}</p>
                     <p className="mt-2 text-sm font-semibold text-brand-text dark:text-white">{step.title}</p>
-                    <p className="mt-2 text-xs leading-relaxed text-brand-text/70 dark:text-white/65">{step.detail}</p>
+                    <p className="mt-2 flex-1 text-xs leading-relaxed text-brand-text/70 dark:text-white/65">{step.detail}</p>
                   </div>
                 ))}
               </div>
@@ -502,14 +505,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="expertise" className="border-t border-black/5 bg-brand-background py-16 dark:border-white/10 dark:bg-brand-night">
+      <section id="expertise" className="page-section-surface border-t border-black/5 dark:border-white/10">
         <div className="app-container">
           <p className="section-eyebrow">Our expertise</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Deep technical capability across the stack</h2>
           <p className="mt-4 max-w-2xl text-base text-brand-text/75 dark:text-white/70">
-            Laravel, React, cloud infrastructure, AI automation, and domain-specific platforms ? built for production, not prototypes.
+            Laravel, React, cloud infrastructure, AI automation, and domain-specific platforms ??????? built for production, not prototypes.
           </p>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="section-block card-grid md:grid-cols-2 xl:grid-cols-3">
             {EXPERTISE_AREAS.map((area) => (
               <article key={area.title} className="glass-card p-6">
                 <h3 className="text-lg font-semibold text-brand-text dark:text-white">{area.title}</h3>
@@ -527,11 +530,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="industries" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
+      <section id="industries" className="page-section-alt border-t border-black/5 dark:border-white/10">
         <div className="app-container">
           <p className="section-eyebrow">Industries we serve</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Specialized tracks for complex domains</h2>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          <div className="section-block card-grid md:grid-cols-2 xl:grid-cols-3">
             {INDUSTRY_SOLUTIONS.map((item) => (
               <article
                 key={item.id}
@@ -552,14 +555,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="portfolio" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
+      <section id="portfolio" className="page-section-alt border-t border-black/5 dark:border-white/10">
         <div className="app-container">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Portfolio</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Web applications &amp; platforms we build</h2>
               <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                Flagship solutions across the Amalgated ecosystem ? lending, property, HRIS, and enterprise operations.
+                Flagship solutions across the Amalgated ecosystem ??????? lending, property, HRIS, and enterprise operations.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -589,7 +592,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="section-block card-grid sm:grid-cols-2 xl:grid-cols-3">
             {filteredPortfolio.map((item) => (
               <button
                 key={item.id}
@@ -625,65 +628,67 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="why" className="border-t border-black/5 bg-brand-background py-16 dark:border-white/10 dark:bg-brand-night">
-        <div className="app-container space-y-12">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-start">
-            <div>
+      <section id="why" className="page-section-surface border-t border-black/5 dark:border-white/10">
+        <div className="app-container section-stack-gap">
+          <div className="trust-split">
+            <div className="trust-split-copy">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Why choose AGC</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Trust is earned through delivery discipline</h2>
               <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                We combine product thinking with engineering execution ? so stakeholders see progress early and users feel the difference in day-to-day workflows.
+                We combine product thinking with engineering execution — so stakeholders see progress early and users feel the difference in day-to-day workflows.
               </p>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="trust-split-cards">
               {WHY_CHOOSE.map((c) => (
-                <div key={c.title} className="enterprise-card p-5">
+                <div key={c.title} className="enterprise-card flex h-full min-h-0 flex-col">
                   <p className="text-sm font-semibold text-brand-text dark:text-white">{c.title}</p>
-                  <p className="mt-2 text-sm text-brand-text/75 dark:text-white/70">{c.detail}</p>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{c.detail}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none sm:p-8">
+          <div className="rounded-2xl border border-black/10 bg-white p-5 shadow-[0_12px_40px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none sm:rounded-3xl sm:p-7 lg:p-8">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Delivery timeline</p>
-            <div className="mt-6 overflow-x-auto pb-2">
-              <div className="flex min-w-[720px] gap-4">
-                {DELIVERY_TIMELINE.map((x) => (
-                  <div key={x.phase} className="min-w-[220px] flex-1 rounded-2xl border border-black/10 bg-brand-background p-4 dark:border-white/10 dark:bg-brand-night/40">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">{x.phase}</p>
-                    <p className="mt-2 text-sm text-brand-text/75 dark:text-white/70">{x.detail}</p>
-                  </div>
-                ))}
-              </div>
+            <div className="mt-4 responsive-timeline sm:mt-5">
+              {DELIVERY_TIMELINE.map((x) => (
+                <div
+                  key={x.phase}
+                  className="flex h-full min-h-[5.5rem] flex-col rounded-2xl border border-black/10 bg-brand-background/90 p-4 dark:border-white/10 dark:bg-brand-night/50"
+                >
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">{x.phase}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{x.detail}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           <div>
-            <div className="flex items-end justify-between gap-6">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Testimonials</p>
-                <h3 className="mt-2 text-2xl font-semibold text-brand-text dark:text-white">What partners say</h3>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-brand-text dark:text-white">What partners say</h3>
               </div>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-5 sm:mt-6">
               <Swiper
+                className="testimonial-swiper !pb-10"
                 modules={[Autoplay, Pagination]}
-                spaceBetween={18}
+                spaceBetween={16}
                 slidesPerView={1}
                 autoplay={{ delay: 5200, disableOnInteraction: false }}
                 pagination={{ clickable: true }}
                 breakpoints={{
-                  768: { slidesPerView: 2 },
-                  1280: { slidesPerView: 3 },
+                  768: { slidesPerView: 2, spaceBetween: 18 },
+                  1280: { slidesPerView: 3, spaceBetween: 20 },
                 }}
               >
                 {TESTIMONIALS.map((t) => (
-                  <SwiperSlide key={t.id}>
-                    <figure className="h-full rounded-3xl border border-black/10 bg-white p-6 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none">
+                  <SwiperSlide key={t.id} className="!h-auto">
+                    <figure className="flex h-full min-h-[220px] flex-col justify-between rounded-2xl border border-black/10 bg-white p-5 shadow-[0_10px_36px_rgba(15,23,42,0.07)] dark:border-white/10 dark:bg-brand-navy/40 dark:shadow-none sm:rounded-3xl sm:p-6">
                       <blockquote className="text-sm leading-relaxed text-brand-text/80 dark:text-white/75">"{t.quote}"</blockquote>
-                      <figcaption className="mt-4 text-sm font-semibold text-brand-text dark:text-white">
+                      <figcaption className="mt-5 border-t border-black/5 pt-4 text-sm font-semibold text-brand-text dark:border-white/10 dark:text-white">
                         {t.name}
                         <span className="mt-1 block text-xs font-medium text-brand-text/60 dark:text-white/55">{t.org}</span>
                       </figcaption>
@@ -696,7 +701,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="faq" className="border-t border-black/5 bg-brand-background-alt py-16 dark:border-white/10 dark:bg-brand-night">
+      <section id="faq" className="page-section-alt border-t border-black/5 dark:border-white/10">
         <div className="app-container max-w-3xl">
           <p className="section-eyebrow">FAQ</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Frequently asked questions</h2>
@@ -740,8 +745,8 @@ export default function Home() {
         error={announcementsError}
       />
 
-      <section id="contact" className="border-t border-black/5 bg-brand-background py-16 dark:border-white/10 dark:bg-brand-night">
-        <div className="app-container grid gap-x-10 gap-y-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:grid-rows-[auto_auto_auto_minmax(280px,1fr)] lg:items-stretch">
+      <section id="contact" className="page-section-surface border-t border-black/5 dark:border-white/10">
+        <div className="app-container card-grid gap-y-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-x-12 lg:grid-rows-[auto_auto_auto_minmax(280px,1fr)] lg:items-stretch">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary lg:col-start-1 lg:row-start-1">
             Contact
           </p>
@@ -789,7 +794,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex flex-col rounded-3xl border border-black/10 bg-white p-7 shadow-soft dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none lg:col-start-2 lg:row-start-2 lg:row-span-3 lg:h-full">
+          <div className="flex flex-col rounded-3xl border border-black/10 bg-white p-5 shadow-soft sm:p-8 dark:border-white/10 dark:bg-brand-navy/35 dark:shadow-none lg:col-start-2 lg:p-10 lg:row-start-2 lg:row-span-3 lg:h-full">
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-semibold text-brand-text dark:text-white">Project inquiry</p>
               <p className="text-xs font-semibold text-brand-text/60 dark:text-white/55">Step {contactStep} of 3</p>
@@ -800,15 +805,15 @@ export default function Home() {
             </div>
 
             {contactStep === 1 && (
-              <div className="mt-6 space-y-4">
-                <label className="block text-xs font-semibold text-brand-text/70 dark:text-white/60" htmlFor="inquiry-name">
+              <div className="form-stack mt-8">
+                <label className="form-label" htmlFor="inquiry-name">
                   Full name
                 </label>
                 <input
                   id="inquiry-name"
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  className="w-full rounded-xl border border-black/15 px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
+                  className="form-field"
                   autoComplete="name"
                 />
                 <label className="block text-xs font-semibold text-brand-text/70 dark:text-white/60" htmlFor="inquiry-email">
@@ -819,7 +824,7 @@ export default function Home() {
                   type="email"
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
-                  className="w-full rounded-xl border border-black/15 px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
+                  className="form-field"
                   autoComplete="email"
                 />
                 <button
@@ -840,7 +845,7 @@ export default function Home() {
             )}
 
             {contactStep === 2 && (
-              <div className="mt-6 space-y-4">
+              <div className="form-stack mt-8">
                 <label className="block text-xs font-semibold text-brand-text/70 dark:text-white/60" htmlFor="inquiry-company">
                   Company (optional)
                 </label>
@@ -848,7 +853,7 @@ export default function Home() {
                   id="inquiry-company"
                   value={contactCompany}
                   onChange={(e) => setContactCompany(e.target.value)}
-                  className="w-full rounded-xl border border-black/15 px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
+                  className="form-field"
                   autoComplete="organization"
                 />
                 <label className="block text-xs font-semibold text-brand-text/70 dark:text-white/60" htmlFor="inquiry-phone">
@@ -858,7 +863,7 @@ export default function Home() {
                   id="inquiry-phone"
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
-                  className="w-full rounded-xl border border-black/15 px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
+                  className="form-field"
                   autoComplete="tel"
                 />
                 <label className="block text-xs font-semibold text-brand-text/70 dark:text-white/60" htmlFor="inquiry-interest">
@@ -900,7 +905,7 @@ export default function Home() {
             )}
 
             {contactStep === 3 && (
-              <div className="mt-6 space-y-4">
+              <div className="form-stack mt-8">
                 <label className="block text-xs font-semibold text-brand-text/70 dark:text-white/60" htmlFor="inquiry-message">
                   Project details
                 </label>
@@ -909,7 +914,7 @@ export default function Home() {
                   value={contactMessage}
                   onChange={(e) => setContactMessage(e.target.value)}
                   rows={5}
-                  className="w-full rounded-xl border border-black/15 px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-night/40 dark:text-white"
+                  className="form-field"
                   placeholder="Goals, timelines, integrations, compliance needs?"
                 />
                 <div className="flex gap-3">

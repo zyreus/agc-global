@@ -16,7 +16,7 @@ export default function ProductShowcase() {
           </p>
         </div>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-2">
+        <div className="section-content-gap flex flex-wrap justify-center gap-2">
           {PRODUCT_PILLARS.map((p) => (
             <button
               key={p.id}
@@ -30,7 +30,7 @@ export default function ProductShowcase() {
         </div>
 
         {active && (
-          <div className="mt-10 grid items-center gap-10 lg:grid-cols-2">
+          <div className="mt-8 grid items-center gap-8 lg:grid-cols-2 lg:gap-10">
             <div>
               <h3 className="text-2xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-3xl">{active.title}</h3>
               <p className="mt-4 text-base leading-relaxed text-brand-text/75 dark:text-white/70">{active.description}</p>

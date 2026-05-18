@@ -8,6 +8,7 @@ class Announcement extends Model
 {
     public const TYPE_NEWS = 'news';
 
+    /** @deprecated Legacy DB values only; new records use {@see TYPE_NEWS}. */
     public const TYPE_CAREER = 'career';
 
     protected $fillable = [

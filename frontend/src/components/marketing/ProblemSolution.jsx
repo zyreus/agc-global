@@ -9,7 +9,7 @@ export default function ProblemSolution() {
           <p className="saas-subhead mx-auto">{PROBLEM_SECTION.subline}</p>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="section-content-gap grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PROBLEM_SECTION.pains.map((pain) => (
             <article key={pain.title} className="pain-card">
               <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10 text-red-500 dark:bg-red-400/10 dark:text-red-400">
@@ -23,7 +23,7 @@ export default function ProblemSolution() {
           ))}
         </div>
 
-        <div className="solution-panel mx-auto mt-16 max-w-4xl text-center">
+        <div className="solution-panel mx-auto mt-10 max-w-4xl text-center sm:mt-12">
           <h3 className="text-2xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-3xl">
             {PROBLEM_SECTION.solutionHeadline}
           </h3>

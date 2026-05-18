@@ -185,28 +185,30 @@ export default function AdminCrm() {
   }
 
   return (
-    <section className="min-h-[calc(100vh-92px)] overflow-hidden rounded-xl border border-black/10 bg-white">
-      <div className="grid min-h-[calc(100vh-92px)] grid-cols-1 xl:grid-cols-[320px_minmax(0,1fr)]">
-        <aside className="border-r border-black/10 bg-[#f8f9fc] p-3">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-[27px] font-semibold leading-none text-black/90">Chat & CRM</h2>
+    <section className="min-h-[min(100vh-92px,100dvh)] overflow-hidden rounded-xl border border-black/10 bg-white dark:border-white/10 dark:bg-brand-navy/30">
+      <div className="grid min-h-[min(100vh-92px,100dvh)] grid-cols-1 xl:grid-cols-[minmax(260px,320px)_minmax(0,1fr)]">
+        <aside className="max-h-[50vh] overflow-y-auto border-b border-black/10 bg-[#f8f9fc] p-3 xl:max-h-none xl:overflow-visible xl:border-b-0 xl:border-r dark:border-white/10 dark:bg-brand-night/40">
+          <div className="flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <h2 className="text-xl font-semibold leading-tight text-black/90 sm:text-2xl dark:text-white">Chat & CRM</h2>
               <p className="mt-1 text-xs text-black/55">{activeTab === 'chats' ? `${conversations.length} conversations` : `${activeTab}`}</p>
             </div>
             <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">Live</span>
           </div>
 
-          <div className="mt-3 grid grid-cols-3 gap-1 rounded-lg bg-[#e9edf5] p-1 text-xs font-semibold">
+          <div className="mt-3 -mx-1 overflow-x-auto pb-1">
+            <div className="flex min-w-max gap-1 rounded-lg bg-[#e9edf5] p-1 text-xs font-semibold dark:bg-white/10">
             {['chats', 'feedback', 'leads', 'analytics', 'tickets'].map((tab) => (
               <button
                 key={tab}
                 type="button"
                 onClick={() => setSearchParams({ tab })}
-                className={`rounded-md px-2 py-1 ${activeTab === tab ? 'bg-white text-black shadow-sm' : 'text-black/65 hover:bg-white/60'}`}
+                className={`shrink-0 rounded-md px-3 py-1.5 ${activeTab === tab ? 'bg-white text-black shadow-sm dark:bg-brand-navy dark:text-white' : 'text-black/65 hover:bg-white/60 dark:text-white/65'}`}
               >
                 {tab[0].toUpperCase() + tab.slice(1)}
               </button>
             ))}
+            </div>
           </div>
 
           <div className="mt-3 space-y-2">
@@ -236,7 +238,7 @@ export default function AdminCrm() {
             )}
           </div>
 
-          <div className="mt-3 max-h-[67vh] space-y-2 overflow-y-auto pr-1">
+          <div className="mt-3 max-h-[40vh] space-y-2 overflow-y-auto pr-1 xl:max-h-[67vh]">
             {activeTab === 'chats' &&
               conversations.map((c) => (
                 <div key={c.session_id} className={`rounded-lg border p-2 ${selectedSessionId === c.session_id ? 'border-black/50 bg-white' : 'border-black/10 bg-white/70'}`}>

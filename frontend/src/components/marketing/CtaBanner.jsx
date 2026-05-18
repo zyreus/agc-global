@@ -2,7 +2,7 @@ export default function CtaBanner({ headline, subline, primaryHref = '#contact',
   const isDark = variant === 'dark'
 
   return (
-    <section className={isDark ? 'relative overflow-hidden bg-brand-dark py-20 text-white sm:py-24' : 'py-16'}>
+    <section className={isDark ? 'cta-section-dark relative overflow-hidden' : 'page-section-compact'}>
       {isDark && (
         <div className="pointer-events-none absolute inset-0" aria-hidden>
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,140,26,0.2),transparent_50%)]" />
@@ -10,9 +10,9 @@ export default function CtaBanner({ headline, subline, primaryHref = '#contact',
         </div>
       )}
       <div className="app-container relative text-center">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl lg:text-4xl">{headline}</h2>
-        {subline && <p className="mx-auto mt-4 max-w-2xl text-base text-white/80">{subline}</p>}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <h2 className="type-h1 font-semibold tracking-tight">{headline}</h2>
+        {subline && <p className="prose-width mx-auto mt-4 text-base text-white/80">{subline}</p>}
+        <div className="btn-group mt-6 justify-center sm:mt-8">
           <a
             href={primaryHref}
             className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-primary px-8 py-3.5 text-sm font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover hover:shadow-[0_4px_20px_rgba(255,140,26,0.4)]"

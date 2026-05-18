@@ -1,4 +1,5 @@
 import { COMPANY } from '../data/marketingContent.js'
+import FooterCookieSettings from './FooterCookieSettings.jsx'
 
 const quickLinks = [
   { href: '#hero', label: 'Home' },
@@ -8,7 +9,7 @@ const quickLinks = [
   { href: '#industries', label: 'Industries' },
   { href: '#about', label: 'About' },
   { href: '#faq', label: 'FAQ' },
-  { href: '#careers-news', label: 'Careers & News' },
+  { href: '#insights', label: 'News & insights' },
   { href: '#contact', label: 'Contact' },
 ]
 
@@ -26,7 +27,7 @@ const services = [
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-white/10 bg-brand-night text-white">
-      <div className="app-container py-12 sm:py-16">
+      <div className="app-container py-10 sm:py-12">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="flex items-center gap-3">
@@ -86,7 +87,7 @@ export default function Footer() {
           <div className="lg:col-span-3">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-gold">Get started</p>
             <p className="mt-3 text-sm text-white/70">
-              Request a consultation, view careers &amp; news, or book a demo of our enterprise platforms.
+              Request a consultation, read news &amp; insights, or book a demo of our enterprise platforms.
             </p>
             <a
               href="#contact"
@@ -103,8 +104,8 @@ export default function Footer() {
                 <a className="hover:text-white" href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
                   WhatsApp
                 </a>
-                <a className="hover:text-white" href="#careers-news">
-                  Careers &amp; News
+                <a className="hover:text-white" href="#insights">
+                  News &amp; insights
                 </a>
               </div>
             </div>
@@ -112,14 +113,17 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-white/70">
+          <div className="flex max-h-32 flex-wrap gap-x-3 gap-y-2 overflow-y-auto text-sm text-white/70 sm:max-h-none md:gap-x-4">
             {quickLinks.map((l) => (
               <a key={l.href} href={l.href} className="transition hover:text-white">
                 {l.label}
               </a>
             ))}
           </div>
-          <p className="text-xs text-white/55">Privacy &amp; data handling: contact us for details</p>
+          <div className="flex flex-wrap items-center gap-3 text-xs text-white/55">
+            <span>Privacy &amp; data handling: contact us for details</span>
+            <FooterCookieSettings />
+          </div>
         </div>
 
         <div className="mt-8 text-center">

@@ -11,9 +11,9 @@ class AnnouncementSeeder extends Seeder
     {
         $items = [
             [
-                'type' => 'career',
+                'type' => 'news',
                 'title' => 'Software Developer (Mid-level)',
-                'content' => 'We are hiring a mid-level developer for Laravel, React, and API integration work. Send your portfolio via the contact form with subject “Career application”.',
+                'content' => 'We are expanding our delivery team for Laravel, React, and API integration work. Reach out via the contact form with subject “Project inquiry” for partnership and engagement models.',
             ],
             [
                 'type' => 'news',

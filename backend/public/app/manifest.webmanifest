@@ -1,0 +1,16 @@
+{
+  "name": "AGC Technologies",
+  "short_name": "AGC",
+  "description": "Enterprise technology solutions — software, cloud, cybersecurity, and automation.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "icons": [
+    {
+      "src": "./AGC.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

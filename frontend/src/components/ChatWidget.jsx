@@ -352,7 +352,7 @@ export default function ChatWidget() {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-4 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-6 sm:right-6"
+        className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-50 flex h-14 w-14 items-center justify-center rounded-full bg-brand-primary text-white shadow-lg transition-transform hover:scale-105 active:scale-95 sm:bottom-6 sm:right-6"
         aria-label={open ? 'Close chat' : 'Open chat'}
       >
         {open ? (
@@ -372,7 +372,7 @@ export default function ChatWidget() {
       </button>
 
       {open && (
-        <div className="fixed bottom-[4.75rem] left-2 right-2 z-50 flex h-[min(560px,calc(100vh-6rem))] w-auto max-w-none flex-col overflow-hidden rounded-2xl border border-brand-primary/30 bg-white shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:w-[380px]">
+        <div className="fixed bottom-[max(4.75rem,env(safe-area-inset-bottom))] left-2 right-2 z-50 flex h-[min(560px,calc(100dvh-6rem))] w-auto max-w-none flex-col overflow-hidden rounded-2xl border border-brand-primary/30 bg-white shadow-2xl sm:bottom-24 sm:left-auto sm:right-6 sm:w-[min(380px,calc(100vw-3rem))]">
           <div className="flex items-center gap-2 border-b border-brand-primary/30 bg-brand-primary px-3 py-3">
             {mode !== 'greeting' && (
               <button

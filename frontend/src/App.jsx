@@ -13,13 +13,17 @@ import AdminCrm from './pages/AdminCrm.jsx'
 import AdminLeads from './pages/AdminLeads.jsx'
 import AdminFeedback from './pages/AdminFeedback.jsx'
 import AdminSettings from './pages/AdminSettings.jsx'
+import AdminPerformance from './pages/AdminPerformance.jsx'
 import AdminModulePlaceholder from './pages/AdminModulePlaceholder.jsx'
+import { CookieConsentProvider } from './contexts/CookieConsentContext.jsx'
+import CookieConsentRoot from './components/consent/CookieConsentRoot.jsx'
 
 function App() {
   const location = useLocation()
   const isAdminRoute = location.pathname.startsWith('/admin')
 
   return (
+    <CookieConsentProvider>
     <div className="min-h-screen bg-brand-background-alt text-brand-text transition-colors duration-300 dark:bg-brand-night dark:text-white/90">
       <div className="relative flex min-h-screen flex-col">
         {!isAdminRoute && (
@@ -42,6 +46,7 @@ function App() {
               <Route path="leads" element={<AdminLeads />} />
               <Route path="feedback" element={<AdminFeedback />} />
               <Route path="settings" element={<AdminSettings />} />
+              <Route path="performance" element={<AdminPerformance />} />
               <Route path="announcements" element={<AdminAnnouncements />} />
               <Route path="subscribers" element={<AdminSubscribers />} />
               <Route path="workspace/:slug" element={<AdminModulePlaceholder />} />
@@ -52,8 +57,10 @@ function App() {
 
         {!isAdminRoute && <Footer />}
         {!isAdminRoute && <ScrollToTop />}
+        <CookieConsentRoot />
       </div>
     </div>
+    </CookieConsentProvider>
   )
 }
 

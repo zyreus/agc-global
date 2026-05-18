@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class AdminAnnouncementController extends Controller
 {
@@ -23,17 +24,18 @@ class AdminAnnouncementController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:190'],
             'content' => ['required', 'string', 'max:4000'],
-            'type' => ['nullable', 'string', 'in:news,career'],
             'is_published' => ['nullable', 'boolean'],
         ]);
 
         $announcement = Announcement::query()->create([
             'title' => trim($data['title']),
             'content' => trim($data['content']),
-            'type' => $data['type'] ?? Announcement::TYPE_NEWS,
+            'type' => Announcement::TYPE_NEWS,
             'is_published' => (bool)($data['is_published'] ?? true),
             'published_at' => now(),
         ]);
+
+        $this->bustAnnouncementCache();
 
         return response()->json(['announcement' => $announcement], 201);
     }
@@ -43,17 +45,18 @@ class AdminAnnouncementController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:190'],
             'content' => ['required', 'string', 'max:4000'],
-            'type' => ['nullable', 'string', 'in:news,career'],
             'is_published' => ['nullable', 'boolean'],
         ]);
 
         $announcement->update([
             'title' => trim($data['title']),
             'content' => trim($data['content']),
-            'type' => $data['type'] ?? $announcement->type,
+            'type' => Announcement::TYPE_NEWS,
             'is_published' => (bool)($data['is_published'] ?? true),
             'published_at' => $announcement->published_at ?? now(),
         ]);
+
+        $this->bustAnnouncementCache();
 
         return response()->json(['announcement' => $announcement->fresh()]);
     }
@@ -61,7 +64,16 @@ class AdminAnnouncementController extends Controller
     public function destroy(Announcement $announcement): JsonResponse
     {
         $announcement->delete();
+        $this->bustAnnouncementCache();
+
         return response()->json(['ok' => true]);
+    }
+
+    protected function bustAnnouncementCache(): void
+    {
+        Cache::forget('announcements.public.news');
+        Cache::forget('announcements.public.all');
+        Cache::forget('announcements.public.career');
     }
 }
 

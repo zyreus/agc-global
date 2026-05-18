@@ -5,7 +5,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 import { API_BASE_URL } from '../../lib/config.js'
-import { CAREERS_NEWS, COMPANY, INSIGHTS_POSTS } from '../../data/marketingContent.js'
+import { INSIGHTS_SECTION, COMPANY, INSIGHTS_POSTS } from '../../data/marketingContent.js'
 
 const INITIAL_NEWS_COUNT = 3
 const LOAD_MORE_STEP = 3
@@ -96,13 +96,13 @@ function NewsCard({ post, variant = 'list', onRead }) {
       ].join(' ')}
     >
       <div
-        className={isFeatured ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]' : 'flex flex-col sm:flex-row'}
+        className={isFeatured ? 'lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]' : 'flex flex-col sm:flex-row sm:items-stretch'}
       >
         <div
           className={[
             'relative flex items-center justify-center bg-gradient-to-br',
             post.gradient,
-            isFeatured ? 'min-h-[200px] p-8 lg:min-h-full' : 'aspect-[16/9] sm:aspect-[2/1] sm:w-44 sm:shrink-0 lg:aspect-auto lg:min-h-[120px]',
+            isFeatured ? 'min-h-[200px] p-8 lg:min-h-full' : 'aspect-[16/9] sm:aspect-auto sm:min-h-[7.5rem] sm:w-40 sm:shrink-0',
           ].join(' ')}
         >
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,140,26,0.18),transparent_55%)]" aria-hidden />
@@ -116,7 +116,7 @@ function NewsCard({ post, variant = 'list', onRead }) {
           </div>
         </div>
 
-        <div className={isFeatured ? 'flex flex-col justify-center p-6 sm:p-8 lg:p-10' : 'flex flex-1 flex-col p-5'}>
+        <div className={isFeatured ? 'flex flex-col justify-center p-6 sm:p-8 lg:p-10' : 'flex min-h-0 flex-1 flex-col justify-between p-5'}>
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={[
@@ -194,7 +194,7 @@ export default function CareersNewsSection({ announcements = [], loading = false
       gradient: p.gradient ?? 'from-slate-100 via-orange-50/40 to-white',
       source: 'static',
     }))
-    const apiPosts = announcements.map(mapAnnouncement)
+    const apiPosts = announcements.filter((a) => (a.type ?? 'news') !== 'career').map(mapAnnouncement)
     return [...staticPosts, ...apiPosts].sort((a, b) => (b.date || '').localeCompare(a.date || ''))
   }, [announcements])
 
@@ -253,13 +253,11 @@ export default function CareersNewsSection({ announcements = [], loading = false
 
   return (
     <section
-      id="careers-news"
-      aria-labelledby="careers-news-heading"
-      className="relative overflow-hidden border-t border-black/5 bg-gradient-to-b from-slate-50 via-brand-background-alt to-white pb-24 pt-20 dark:border-white/10 dark:from-brand-night dark:via-brand-night dark:to-brand-navy/30 sm:pb-28 sm:pt-24 lg:pb-28 lg:pt-28"
+      id="insights"
+      aria-labelledby="insights-heading"
+      className="page-section relative scroll-mt-28 border-t border-black/5 bg-gradient-to-b from-slate-50 via-brand-background-alt to-white pb-8 sm:pb-10 dark:border-white/10 dark:from-brand-night dark:via-brand-night dark:to-brand-navy/30"
     >
-      <div id="insights" className="absolute -top-24 scroll-mt-28" aria-hidden />
-
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div className="absolute -right-24 top-0 h-96 w-96 rounded-full bg-brand-primary/8 blur-3xl motion-safe:animate-blob" />
         <div className="absolute -left-32 bottom-0 h-80 w-80 rounded-full bg-orange-300/10 blur-3xl motion-safe:animate-blob" />
         <div
@@ -273,83 +271,23 @@ export default function CareersNewsSection({ announcements = [], loading = false
       </div>
 
       <div className="app-container relative">
-        <div className="max-w-3xl">
-          <p className="section-eyebrow">{CAREERS_NEWS.eyebrow}</p>
-          <h2 id="careers-news-heading" className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
-            {CAREERS_NEWS.headline}
+        <div className="section-head">
+          <p className="section-eyebrow">{INSIGHTS_SECTION.eyebrow}</p>
+          <h2 id="insights-heading" className="type-h1 mt-3 font-semibold tracking-tight text-brand-text dark:text-white">
+            {INSIGHTS_SECTION.headline}
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-brand-text/75 dark:text-white/70">{CAREERS_NEWS.subline}</p>
+          <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70 sm:mt-4">{INSIGHTS_SECTION.subline}</p>
         </div>
 
-        <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-start lg:gap-12">
-          <div className="space-y-12">
-            <div id="careers" className="scroll-mt-28">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Careers</p>
-                <h3 className="mt-2 text-2xl font-semibold tracking-tight text-brand-text dark:text-white">Join the Amalgated team</h3>
-              </div>
-
-              <div className="mt-6 overflow-hidden rounded-3xl border border-black/8 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.06)] dark:border-white/10 dark:bg-brand-navy/50 dark:shadow-none">
-                <div className="relative border-b border-black/5 bg-gradient-to-br from-brand-primary/10 via-orange-50/50 to-white p-6 sm:p-8 dark:border-white/10 dark:from-brand-primary/15 dark:via-brand-navy/60 dark:to-brand-navy/40">
-                  <div className="absolute right-6 top-6 hidden h-20 w-20 rounded-full border border-brand-primary/20 bg-brand-primary/5 sm:block" aria-hidden />
-                  <div className="relative max-w-xl">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-brand-primary/25 bg-white/80 px-3 py-1 text-xs font-semibold text-brand-primary backdrop-blur dark:bg-brand-night/60">
-                      <span className="h-1.5 w-1.5 rounded-full bg-brand-primary motion-safe:animate-pulse" aria-hidden />
-                      No openings currently
-                    </span>
-                    <p className="mt-4 text-lg font-semibold text-brand-text dark:text-white">We are growing — and we want to hear from you</p>
-                    <p className="mt-2 text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{CAREERS_NEWS.growthMessage}</p>
-                    <a href="#contact" className="btn-primary mt-6">
-                      {CAREERS_NEWS.resumeCta}
-                    </a>
-                  </div>
-                </div>
-
-                <div className="grid gap-6 p-6 sm:p-8 lg:grid-cols-2">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-text/50 dark:text-white/45">Departments we hire for</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {CAREERS_NEWS.departments.map((dept) => (
-                        <span
-                          key={dept}
-                          className="rounded-full border border-black/8 bg-brand-background px-3 py-1.5 text-xs font-semibold text-brand-text/80 dark:border-white/10 dark:bg-brand-night/50 dark:text-white/75"
-                        >
-                          {dept}
-                        </span>
-                      ))}
-                    </div>
-                    <p className="mt-5 text-sm leading-relaxed text-brand-text/75 dark:text-white/70">
-                      <span className="font-semibold text-brand-text dark:text-white">Culture:</span> {CAREERS_NEWS.cultureSnippet}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-text/50 dark:text-white/45">Hiring process</p>
-                    <ol className="mt-3 space-y-3">
-                      {CAREERS_NEWS.hiringProcess.map((step) => (
-                        <li key={step.step} className="flex gap-3 rounded-2xl border border-black/5 bg-brand-background/80 p-3 dark:border-white/10 dark:bg-brand-night/40">
-                          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-brand-primary/10 text-xs font-bold text-brand-primary">
-                            {step.step}
-                          </span>
-                          <div>
-                            <p className="text-sm font-semibold text-brand-text dark:text-white">{step.title}</p>
-                            <p className="mt-0.5 text-xs text-brand-text/65 dark:text-white/60">{step.detail}</p>
-                          </div>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+        <div className="insights-layout mt-5 sm:mt-6 lg:mt-7">
+          <div className="insights-layout-main">
             <div id="news" className="scroll-mt-28">
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-                <div>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between lg:items-center">
+                <div className="min-w-0 flex-1">
                   <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">News & updates</p>
-                  <h3 className="mt-2 text-2xl font-semibold tracking-tight text-brand-text dark:text-white">Latest from Amalgated</h3>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-2xl">Latest from Amalgated</h3>
                   {loading && (
-                    <p className="mt-3 text-sm text-brand-text/60 dark:text-white/55">Loading careers and news…</p>
+                    <p className="mt-3 text-sm text-brand-text/60 dark:text-white/55">Loading news…</p>
                   )}
                   {error && !loading && (
                     <p className="mt-3 text-sm text-amber-700 dark:text-amber-200">
@@ -358,11 +296,11 @@ export default function CareersNewsSection({ announcements = [], loading = false
                   )}
                 </div>
 
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
                   <label className="sr-only" htmlFor="news-search">
                     Search news
                   </label>
-                  <div className="relative">
+                  <div className="relative min-w-0 flex-1 sm:min-w-[12rem] lg:min-w-[14rem]">
                     <svg
                       className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-text/40"
                       viewBox="0 0 24 24"
@@ -381,7 +319,7 @@ export default function CareersNewsSection({ announcements = [], loading = false
                         setVisibleCount(INITIAL_NEWS_COUNT)
                       }}
                       placeholder="Search updates…"
-                      className="w-full rounded-xl border border-black/10 bg-white py-2.5 pl-10 pr-3 text-sm outline-none ring-brand-primary transition focus:ring-2 sm:w-56 dark:border-white/10 dark:bg-brand-navy/50 dark:text-white"
+                      className="w-full min-w-0 rounded-xl border border-black/10 bg-white py-2.5 pl-10 pr-3 text-sm outline-none ring-brand-primary transition focus:ring-2 dark:border-white/10 dark:bg-brand-navy/50 dark:text-white"
                     />
                   </div>
                   <label className="sr-only" htmlFor="news-category">
@@ -394,7 +332,7 @@ export default function CareersNewsSection({ announcements = [], loading = false
                       setNewsCategory(e.target.value)
                       setVisibleCount(INITIAL_NEWS_COUNT)
                     }}
-                    className="rounded-xl border border-black/10 bg-white px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-navy/50 dark:text-white"
+                    className="w-full shrink-0 rounded-xl border border-black/10 bg-white px-3 py-2.5 text-sm outline-none ring-brand-primary focus:ring-2 dark:border-white/10 dark:bg-brand-navy/50 dark:text-white sm:w-auto sm:min-w-[8.5rem]"
                   >
                     {categories.map((cat) => (
                       <option key={cat} value={cat}>
@@ -406,13 +344,13 @@ export default function CareersNewsSection({ announcements = [], loading = false
               </div>
 
               {featuredPost && (
-                <div className="mt-8 hidden lg:block">
+                <div className="mt-5 hidden sm:mt-6 lg:block">
                   <NewsCard post={featuredPost} variant="featured" onRead={setActiveArticle} />
                 </div>
               )}
 
               {featuredPost && (
-                <div className="mt-8 lg:hidden">
+                <div className="mt-5 sm:mt-6 lg:hidden">
                   <Swiper modules={[Pagination]} spaceBetween={16} slidesPerView={1.05} pagination={{ clickable: true }}>
                     <SwiperSlide>
                       <NewsCard post={featuredPost} variant="featured" onRead={setActiveArticle} />
@@ -421,7 +359,7 @@ export default function CareersNewsSection({ announcements = [], loading = false
                 </div>
               )}
 
-              <div className="mt-8 space-y-4">
+              <div className="mt-5 space-y-3 sm:mt-6 lg:space-y-4">
                 <div className="hidden lg:block">
                   {visibleNews.length === 0 && (
                     <p className="rounded-2xl border border-dashed border-black/15 p-6 text-sm text-brand-text/65 dark:border-white/15 dark:text-white/60">
@@ -450,33 +388,19 @@ export default function CareersNewsSection({ announcements = [], loading = false
                 </div>
               </div>
 
-              {hasMore && (
-                <div className="mt-6 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={() => setVisibleCount((c) => c + LOAD_MORE_STEP)}
-                    className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-semibold text-brand-text shadow-soft transition hover:border-brand-primary/35 hover:text-brand-primary dark:border-white/10 dark:bg-brand-navy/40 dark:text-white dark:hover:text-brand-gold"
-                  >
-                    Load more news
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden>
-                      <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                </div>
-              )}
             </div>
           </div>
 
-          <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
+          <aside className="insights-layout-aside">
             <div className="overflow-hidden rounded-3xl border border-brand-primary/20 bg-white shadow-[0_24px_70px_rgba(255,140,26,0.14)] dark:border-brand-primary/25 dark:bg-brand-navy/50">
-              <div className="border-b border-brand-primary/15 bg-gradient-to-br from-brand-primary via-orange-500 to-amber-500 px-6 py-5 text-white">
+              <div className="border-b border-brand-primary/15 bg-gradient-to-br from-brand-primary via-orange-500 to-amber-500 px-5 py-4 text-white sm:px-6 sm:py-4.5">
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/85">Newsletter</p>
-                <h3 className="mt-2 text-xl font-semibold leading-snug tracking-tight">{CAREERS_NEWS.newsletter.title}</h3>
+                <h3 className="mt-1.5 text-lg font-semibold leading-snug tracking-tight sm:mt-2 sm:text-xl">{INSIGHTS_SECTION.newsletter.title}</h3>
               </div>
-              <div className="p-6">
-                <p className="text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{CAREERS_NEWS.newsletter.subline}</p>
-                <ul className="mt-4 space-y-2">
-                  {CAREERS_NEWS.newsletter.benefits.map((benefit) => (
+              <div className="p-5 sm:p-6">
+                <p className="text-sm leading-relaxed text-brand-text/75 dark:text-white/70">{INSIGHTS_SECTION.newsletter.subline}</p>
+                <ul className="mt-3 space-y-1.5 sm:mt-4 sm:space-y-2">
+                  {INSIGHTS_SECTION.newsletter.benefits.map((benefit) => (
                     <li key={benefit} className="flex gap-2.5 text-sm text-brand-text/80 dark:text-white/75">
                       <svg className="mt-0.5 h-4 w-4 shrink-0 text-brand-primary" viewBox="0 0 24 24" fill="none" aria-hidden>
                         <path d="M20 6 9 17l-5-5" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -485,23 +409,23 @@ export default function CareersNewsSection({ announcements = [], loading = false
                     </li>
                   ))}
                 </ul>
-                <p className="mt-4 flex items-center gap-2 text-xs font-medium text-brand-text/60 dark:text-white/55">
+                <p className="mt-3 flex items-center gap-2 text-xs font-medium text-brand-text/60 dark:text-white/55 sm:mt-4">
                   <svg className="h-4 w-4 text-brand-primary" viewBox="0 0 24 24" fill="none" aria-hidden>
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" />
                     <circle cx="9" cy="7" r="4" stroke="currentColor" strokeWidth="2" />
                     <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" strokeWidth="2" />
                   </svg>
-                  {CAREERS_NEWS.newsletter.socialProof}
+                  {INSIGHTS_SECTION.newsletter.socialProof}
                 </p>
 
-                <form className="mt-5 space-y-3" onSubmit={subscribeNewsletter}>
+                <form className="mt-4 space-y-2.5 sm:mt-5 sm:space-y-3" onSubmit={subscribeNewsletter}>
                   <input
                     type="text"
                     value={newsletterName}
                     onChange={(e) => setNewsletterName(e.target.value)}
                     placeholder="Your name (optional)"
                     autoComplete="name"
-                    className="w-full rounded-xl border border-black/12 bg-brand-background/80 px-3.5 py-3 text-sm outline-none transition focus:border-brand-primary/40 focus:ring-2 focus:ring-brand-primary/25 dark:border-white/10 dark:bg-brand-night/50 dark:text-white"
+                    className="w-full rounded-xl border border-black/12 bg-brand-background/80 px-3.5 py-2.5 text-sm outline-none transition focus:border-brand-primary/40 focus:ring-2 focus:ring-brand-primary/25 dark:border-white/10 dark:bg-brand-night/50 dark:text-white sm:py-3"
                   />
                   <input
                     type="email"
@@ -510,12 +434,12 @@ export default function CareersNewsSection({ announcements = [], loading = false
                     placeholder="Work email"
                     required
                     autoComplete="email"
-                    className="w-full rounded-xl border border-black/12 bg-brand-background/80 px-3.5 py-3 text-sm outline-none transition focus:border-brand-primary/40 focus:ring-2 focus:ring-brand-primary/25 dark:border-white/10 dark:bg-brand-night/50 dark:text-white"
+                    className="w-full rounded-xl border border-black/12 bg-brand-background/80 px-3.5 py-2.5 text-sm outline-none transition focus:border-brand-primary/40 focus:ring-2 focus:ring-brand-primary/25 dark:border-white/10 dark:bg-brand-night/50 dark:text-white sm:py-3"
                   />
                   <button
                     type="submit"
                     disabled={newsletterLoading}
-                    className="group relative w-full overflow-hidden rounded-xl bg-brand-primary px-5 py-3.5 text-sm font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover disabled:opacity-60"
+                    className="group relative w-full overflow-hidden rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover disabled:opacity-60 sm:py-3.5"
                   >
                     <span className="relative z-10">{newsletterLoading ? 'Subscribing…' : 'Subscribe now'}</span>
                     <span
@@ -541,26 +465,26 @@ export default function CareersNewsSection({ announcements = [], loading = false
                     {newsletterMessage}
                   </p>
                 )}
-                <p className="mt-3 text-[11px] leading-relaxed text-brand-text/55 dark:text-white/50">{CAREERS_NEWS.newsletter.privacy}</p>
+                <p className="mt-2.5 text-[11px] leading-relaxed text-brand-text/55 dark:text-white/50 sm:mt-3">{INSIGHTS_SECTION.newsletter.privacy}</p>
 
                 <a
-                  href={CAREERS_NEWS.newsletter.resourceHref}
-                  className="mt-4 flex items-center gap-3 rounded-2xl border border-dashed border-brand-primary/30 bg-brand-primary/5 p-3 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary/10"
+                  href={INSIGHTS_SECTION.newsletter.resourceHref}
+                  className="mt-3 flex items-center gap-2.5 rounded-2xl border border-dashed border-brand-primary/30 bg-brand-primary/5 p-2.5 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary/10 sm:mt-4 sm:gap-3 sm:p-3"
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-brand-primary shadow-soft dark:bg-brand-night/80">
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-white text-brand-primary shadow-soft dark:bg-brand-night/80 sm:h-10 sm:w-10">
+                    <svg className="h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none" aria-hidden>
                       <path d="M12 3v12M8 11l4 4 4-4M5 21h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </span>
-                  {CAREERS_NEWS.newsletter.resourceLabel}
+                  {INSIGHTS_SECTION.newsletter.resourceLabel}
                 </a>
               </div>
             </div>
 
-            <div className="rounded-3xl border border-black/8 bg-white p-5 shadow-soft dark:border-white/10 dark:bg-brand-navy/40">
+            <div className="rounded-3xl border border-black/8 bg-white p-4 shadow-soft dark:border-white/10 dark:bg-brand-navy/40 sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">Company at a glance</p>
-              <dl className="mt-4 grid grid-cols-2 gap-4">
-                {CAREERS_NEWS.companyStats.map((stat) => (
+              <dl className="mt-3 grid grid-cols-2 gap-3 sm:mt-4 sm:gap-4">
+                {INSIGHTS_SECTION.companyStats.map((stat) => (
                   <div key={stat.label}>
                     <dt className="text-2xl font-semibold tracking-tight text-brand-text dark:text-white">{stat.value}</dt>
                     <dd className="mt-0.5 text-xs font-medium text-brand-text/60 dark:text-white/55">{stat.label}</dd>
@@ -569,10 +493,10 @@ export default function CareersNewsSection({ announcements = [], loading = false
               </dl>
             </div>
 
-            <div className="rounded-3xl border border-black/8 bg-white p-5 shadow-soft dark:border-white/10 dark:bg-brand-navy/40">
+            <div className="rounded-3xl border border-black/8 bg-white p-4 shadow-soft dark:border-white/10 dark:bg-brand-navy/40 sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">Recent achievements</p>
-              <ul className="mt-4 space-y-3">
-                {CAREERS_NEWS.achievements.map((item) => (
+              <ul className="mt-3 space-y-2.5 sm:mt-4 sm:space-y-3">
+                {INSIGHTS_SECTION.achievements.map((item) => (
                   <li key={item.title} className="border-l-2 border-brand-primary/40 pl-3">
                     <p className="text-sm font-semibold text-brand-text dark:text-white">{item.title}</p>
                     <p className="mt-0.5 text-xs text-brand-text/65 dark:text-white/60">{item.detail}</p>
@@ -581,10 +505,10 @@ export default function CareersNewsSection({ announcements = [], loading = false
               </ul>
             </div>
 
-            <div className="rounded-3xl border border-black/8 bg-gradient-to-br from-brand-secondary to-brand-navy p-5 text-white shadow-soft">
+            <div className="rounded-3xl border border-black/8 bg-gradient-to-br from-brand-secondary to-brand-navy p-4 text-white shadow-soft sm:p-5">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-gold">Featured services</p>
-              <ul className="mt-4 space-y-2">
-                {CAREERS_NEWS.featuredServices.map((svc) => (
+              <ul className="mt-3 space-y-1.5 sm:mt-4 sm:space-y-2">
+                {INSIGHTS_SECTION.featuredServices.map((svc) => (
                   <li key={svc.title}>
                     <a href={svc.href} className="group flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 transition hover:border-brand-primary/40 hover:bg-white/10">
                       <span>
@@ -598,8 +522,8 @@ export default function CareersNewsSection({ announcements = [], loading = false
                   </li>
                 ))}
               </ul>
-              <div className="mt-5 flex flex-wrap gap-3 border-t border-white/10 pt-5">
-                {CAREERS_NEWS.socialLinks.map((link) => (
+              <div className="mt-4 flex flex-wrap gap-2 border-t border-white/10 pt-4 sm:mt-5 sm:gap-3 sm:pt-5">
+                {INSIGHTS_SECTION.socialLinks.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
@@ -611,7 +535,7 @@ export default function CareersNewsSection({ announcements = [], loading = false
                   </a>
                 ))}
               </div>
-              <a href="#contact" className="btn-primary mt-5 w-full">
+              <a href="#contact" className="btn-primary mt-4 w-full sm:mt-5">
                 Contact support
               </a>
               <p className="mt-3 text-center text-xs text-white/55">
@@ -621,6 +545,21 @@ export default function CareersNewsSection({ announcements = [], loading = false
               </p>
             </div>
           </aside>
+
+          {hasMore && (
+            <div className="col-span-full flex justify-center border-t border-black/5 pt-6 dark:border-white/10 sm:pt-7">
+              <button
+                type="button"
+                onClick={() => setVisibleCount((c) => c + LOAD_MORE_STEP)}
+                className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-6 py-3 text-sm font-semibold text-brand-text shadow-soft transition hover:border-brand-primary/35 hover:text-brand-primary dark:border-white/10 dark:bg-brand-navy/40 dark:text-white dark:hover:text-brand-gold"
+              >
+                Load more news
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden>
+                  <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -660,7 +599,7 @@ export default function CareersNewsSection({ announcements = [], loading = false
       )}
 
       <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-black/10 bg-white/95 p-3 backdrop-blur-md dark:border-white/10 dark:bg-brand-night/95 lg:hidden">
-        <a href="#careers-news" className="btn-primary w-full text-center">
+        <a href="#insights" className="btn-primary w-full text-center">
           Subscribe for updates
         </a>
       </div>

@@ -4,7 +4,7 @@ export default function IntegrationsSection() {
   return (
     <section id="integrations" className="saas-section-alt">
       <div className="app-container">
-        <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
+        <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-10">
           <div>
             <p className="section-eyebrow">Integrations</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">

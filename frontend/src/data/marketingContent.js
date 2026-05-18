@@ -419,24 +419,11 @@ export const INSIGHTS_POSTS = [
   },
 ]
 
-export const CAREERS_NEWS = {
-  eyebrow: 'Careers & News',
-  headline: 'Build with us. Stay ahead of what matters.',
+export const INSIGHTS_SECTION = {
+  eyebrow: 'News & insights',
+  headline: 'Stay ahead of what matters.',
   subline:
-    'Explore opportunities across the Amalgated ecosystem — from Amalgated Lending and enterprise platforms to the teams powering regulated, high-trust technology.',
-  growthMessage:
-    'We are expanding engineering, product, and operations capacity to support lending, property, and enterprise clients across the Philippines and beyond.',
-  cultureSnippet:
-    'We hire builders who care about clarity, compliance, and craft — teams that ship with discipline and communicate with transparency.',
-  resumeCta: 'Submit Resume for Future Opportunities',
-  departments: ['Engineering', 'Product & Design', 'Lending Operations', 'Compliance & Risk', 'Customer Success'],
-  hiringProcess: [
-    { step: '01', title: 'Application review', detail: 'We review every profile within 5 business days.' },
-    { step: '02', title: 'Skills conversation', detail: 'A focused discussion on experience, values, and role fit.' },
-    { step: '03', title: 'Technical / case review', detail: 'Role-appropriate exercise or portfolio walkthrough.' },
-    { step: '04', title: 'Team & leadership meet', detail: 'Meet stakeholders and align on expectations.' },
-    { step: '05', title: 'Offer & onboarding', detail: 'Structured onboarding with mentors and clear 30/60/90 goals.' },
-  ],
+    'Product updates, platform notes, and perspectives from the Amalgated team — lending, compliance, and enterprise delivery.',
   companyStats: [
     { value: '210+', label: 'Projects delivered' },
     { value: '98%', label: 'Client satisfaction' },
@@ -463,7 +450,7 @@ export const CAREERS_NEWS = {
     benefits: [
       'Product release notes & platform updates',
       'Lending & compliance insights for operators',
-      'Career openings before public listings',
+      'Delivery playbooks for regulated environments',
     ],
     privacy: 'We respect your inbox. Unsubscribe anytime. No third-party sharing.',
     socialProof: '2,400+ professionals already subscribed',

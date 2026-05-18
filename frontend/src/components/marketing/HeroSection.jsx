@@ -17,12 +17,12 @@ export default function HeroSection() {
     <section id="hero" className="relative overflow-hidden bg-brand-dark text-white">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute inset-0 bg-grid-pattern opacity-40" />
-        <div className="absolute -left-32 top-0 h-[500px] w-[500px] rounded-full bg-brand-primary/20 blur-[100px] motion-safe:animate-blob" />
-        <div className="absolute -right-32 top-20 h-[400px] w-[400px] rounded-full bg-brand-gold/10 blur-[80px] motion-safe:animate-blob motion-safe:[animation-delay:-4s]" />
+        <div className="absolute -left-20 top-0 h-[280px] w-[280px] rounded-full bg-brand-primary/20 blur-[80px] motion-safe:animate-blob sm:-left-32 sm:h-[400px] sm:w-[400px] sm:blur-[100px]" />
+        <div className="absolute -right-16 top-16 h-[220px] w-[220px] rounded-full bg-brand-gold/10 blur-[60px] motion-safe:animate-blob motion-safe:[animation-delay:-4s] sm:-right-32 sm:top-20 sm:h-[400px] sm:w-[400px] sm:blur-[80px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/95 to-brand-night" />
       </div>
 
-      <div className="app-container relative pt-16 sm:pt-20 lg:pt-24">
+      <div className="app-container hero-inner relative">
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="saas-headline text-white">
             {HERO.headline}
@@ -35,7 +35,7 @@ export default function HeroSection() {
           )}
           <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">{HERO.subline}</p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+          <div className="btn-group mt-8 justify-center sm:mt-10">
             <a href="#contact" className="btn-cta-dark rounded-full px-8">
               {HERO.ctaPrimary}
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
@@ -48,7 +48,7 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="mx-auto mt-16 max-w-5xl lg:mt-20">
+        <div className="mx-auto mt-10 max-w-5xl sm:mt-12 lg:mt-14">
           <div className="dashboard-frame p-1 sm:p-2">
             <div className="rounded-xl bg-brand-night/80 p-4 sm:p-6">
               <div className="mb-4 flex items-center justify-between gap-3 border-b border-white/10 pb-4">
@@ -83,7 +83,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <div className="relative -mt-px h-16 w-full overflow-hidden" aria-hidden>
+      <div className="relative -mt-px h-12 w-full overflow-hidden sm:h-14" aria-hidden>
         <svg className="h-full w-full text-brand-background dark:text-brand-night" viewBox="0 0 1440 80" preserveAspectRatio="none">
           <path fill="currentColor" d="M0 40 C 360 80, 720 0, 1080 40 S 1440 80, 1440 40 L 1440 80 L 0 80 Z" />
         </svg>

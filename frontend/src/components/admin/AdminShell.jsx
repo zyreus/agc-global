@@ -200,6 +200,7 @@ const NAV_GROUPS = [
     heading: 'System',
     items: [
       { label: 'Messages', to: '/admin/messages', icon: InboxIcon },
+      { label: 'Performance & privacy', to: '/admin/performance', icon: ShieldIcon },
       { label: 'Settings', to: '/admin/settings', icon: SettingsIcon },
     ],
   },
@@ -423,7 +424,7 @@ export default function AdminShell() {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-end gap-2">
+            <div className="flex flex-wrap items-center justify-end gap-1.5 sm:gap-2">
               <div className="relative" ref={notifyRef}>
                 <button
                   type="button"
@@ -467,7 +468,7 @@ export default function AdminShell() {
               </Link>
               <Link
                 to="/admin/settings"
-                className="rounded-xl bg-brand-primary px-3 py-2 text-xs font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover"
+                className="rounded-xl bg-brand-primary px-2.5 py-2 text-xs font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover sm:px-3"
               >
                 Settings
               </Link>

@@ -9,6 +9,8 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AiChatController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\CookieConsentController;
+use App\Http\Controllers\AdminPerformanceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/privacy/cookie-config', [CookieConsentController::class, 'config']);
+Route::post('/privacy/consent', [CookieConsentController::class, 'store']);
 
 Route::post('/ai/chat', [AiChatController::class, 'respond']);
 Route::post('/feedback', [FeedbackController::class, 'store']);
@@ -91,4 +96,11 @@ Route::middleware(['auth:sanctum', 'ensure.admin'])->group(function () {
     Route::post('/admin/crm/leads/{lead}/archive', [AdminCrmController::class, 'leadArchive']);
 
     Route::get('/admin/crm/feedback', [AdminCrmController::class, 'feedback']);
+
+    Route::get('/admin/performance', [AdminPerformanceController::class, 'overview']);
+    Route::put('/admin/performance/cookie-settings', [AdminPerformanceController::class, 'updateCookieSettings']);
+    Route::post('/admin/performance/cache/clear', [AdminPerformanceController::class, 'clearCache']);
+    Route::post('/admin/performance/cache/optimize', [AdminPerformanceController::class, 'optimizeCache']);
+    Route::post('/admin/performance/cache/warm', [AdminPerformanceController::class, 'warmCache']);
+    Route::get('/admin/performance/consent-logs', [AdminPerformanceController::class, 'consentLogs']);
 });

@@ -4,23 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Cache;
 
 class AnnouncementController extends Controller
 {
-    public function index(\Illuminate\Http\Request $request): JsonResponse
+    public function index(): JsonResponse
     {
-        $type = $request->query('type');
-        if ($type !== null && ! in_array($type, [Announcement::TYPE_NEWS, Announcement::TYPE_CAREER], true)) {
-            return response()->json(['message' => 'Invalid announcement type.'], 422);
-        }
+        $ttl = (int) config('performance.public_cache.announcements_ttl', 300);
+        $cacheKey = 'announcements.public.news';
 
-        $announcements = Announcement::query()
-            ->where('is_published', true)
-            ->when($type, fn ($q) => $q->where('type', $type))
-            ->orderByDesc('published_at')
-            ->orderByDesc('id')
-            ->limit($type ? 12 : 24)
-            ->get(['id', 'title', 'content', 'type', 'published_at']);
+        $announcements = Cache::remember($cacheKey, $ttl, function () {
+            return Announcement::query()
+                ->where('is_published', true)
+                ->where('type', Announcement::TYPE_NEWS)
+                ->orderByDesc('published_at')
+                ->orderByDesc('id')
+                ->limit(24)
+                ->get(['id', 'title', 'content', 'type', 'published_at']);
+        });
 
         return response()->json([
             'announcements' => $announcements,

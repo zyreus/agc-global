@@ -24,7 +24,7 @@ export default function ScrollToTop() {
       onClick={scrollToTop}
       aria-label="Back to top"
       title="Back to top"
-      className={`fixed bottom-24 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/90 text-brand-text shadow-soft backdrop-blur-md transition-all duration-300 hover:border-brand-primary/40 hover:bg-white hover:text-brand-primary hover:shadow-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 dark:border-white/15 dark:bg-brand-navy/85 dark:text-white/90 dark:hover:border-brand-primary/50 dark:hover:text-brand-primary sm:bottom-28 sm:right-6 ${
+      className={`fixed bottom-[max(6rem,env(safe-area-inset-bottom))] right-[max(1rem,env(safe-area-inset-right))] z-40 flex h-11 w-11 touch-target items-center justify-center rounded-full border border-black/10 bg-white/90 text-brand-text shadow-soft backdrop-blur-md transition-all duration-300 hover:border-brand-primary/40 hover:bg-white hover:text-brand-primary hover:shadow-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 dark:border-white/15 dark:bg-brand-navy/85 dark:text-white/90 dark:hover:border-brand-primary/50 dark:hover:text-brand-primary sm:bottom-28 sm:right-6 ${
         visible ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >

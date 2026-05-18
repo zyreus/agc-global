@@ -133,9 +133,8 @@ export default function AdminOverview() {
         <KpiCard label="Captured leads" value={stats?.total_leads ?? 0} hint="From website & chat" accent="bg-sky-500/90" />
       </div>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <KpiCard label="Feedback entries" value={stats?.total_feedback ?? 0} hint="Customer voice" />
-        <KpiCard label="Live careers" value={stats?.published_careers ?? 0} hint="Published on website" />
         <KpiCard label="Live news" value={stats?.published_news ?? 0} hint="Published on website" />
         <KpiCard label="Newsletter subscribers" value={stats?.total_subscribers ?? 0} hint="Audience growth" />
       </div>
@@ -155,7 +154,7 @@ export default function AdminOverview() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             <QuickLink to="/admin/leads" title="Lead pipeline" desc="Review and qualify inbound leads" />
             <QuickLink to="/admin/crm" title="Chat & CRM" desc="Sessions, replies, and CRM hygiene" />
-            <QuickLink to="/admin/announcements" title="Announcements" desc="Careers, news, and launches" />
+            <QuickLink to="/admin/announcements" title="Announcements" desc="News and product updates" />
             <QuickLink to="/admin/workspace/analytics" title="Analytics hub" desc="Revenue & conversion (roadmap)" />
           </div>
         </div>

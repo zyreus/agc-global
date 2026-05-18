@@ -2,7 +2,7 @@ import { CASE_STUDY_METRICS } from '../../data/marketingContent.js'
 
 export default function CaseStudyMetrics() {
   return (
-    <section className="border-y border-black/5 bg-brand-dark py-14 text-white dark:border-white/10">
+    <section className="section-band-y border-y border-black/5 bg-brand-dark text-white dark:border-white/10">
       <div className="app-container">
         <p className="text-center text-xs font-semibold uppercase tracking-[0.22em] text-brand-gold">Customer outcomes</p>
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
