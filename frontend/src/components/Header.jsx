@@ -60,12 +60,12 @@ export default function Header() {
   }
 
   const navItems = [
-    { id: 'about', label: 'About' },
-    { id: 'services', label: 'Services' },
-    { id: 'industries', label: 'Industries' },
+    { id: 'solutions', label: 'Solutions' },
+    { id: 'products', label: 'Products' },
     { id: 'portfolio', label: 'Portfolio' },
-    { id: 'why', label: 'Why AGC' },
-    { id: 'updates', label: 'Updates' },
+    { id: 'industries', label: 'Industries' },
+    { id: 'about', label: 'About' },
+    { id: 'insights', label: 'Resources' },
   ]
 
   return (
@@ -146,7 +146,7 @@ export default function Header() {
             onClick={() => goTo('contact')}
             className="ml-2 inline-flex items-center justify-center rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover hover:shadow-[0_4px_12px_rgba(255,140,26,0.35)]"
           >
-            Contact
+            Book a Consultation
           </button>
         </nav>
 
@@ -220,7 +220,7 @@ export default function Header() {
             className="mt-3 block w-full rounded-xl bg-brand-primary px-4 py-3 text-center text-sm font-semibold text-white"
             onClick={() => goTo('contact')}
           >
-            Contact
+            Book a Consultation
           </button>
         </div>
       )}

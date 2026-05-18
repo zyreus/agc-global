@@ -24,6 +24,46 @@
   --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.08);
   --shadow-brand-primary: 0 2px 8px rgba(255, 140, 26, 0.35);
   --shadow-glow-orange: 0 0 80px rgba(255, 140, 26, 0.22);
+  --section-py: 5rem;
+  --section-py-lg: 7rem;
+}
+
+@keyframes agc-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes agc-word-cycle {
+  0%,
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  25%,
+  95% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes agc-pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 @keyframes agc-marquee {
@@ -136,7 +176,122 @@ body {
   }
 
   .glass-panel {
-    @apply border border-white/15 bg-white/10 backdrop-blur-xl;
+    @apply border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.12)];
+  }
+
+  .glass-card {
+    @apply rounded-3xl border border-black/10 bg-white/80 shadow-soft backdrop-blur-md transition hover:-translate-y-0.5 hover:border-brand-primary/35 hover:shadow-[0_20px_50px_rgba(255,140,26,0.08)] dark:border-white/10 dark:bg-brand-navy/40 dark:hover:border-brand-primary/30;
+  }
+
+  .enterprise-card {
+    @apply rounded-3xl border border-black/10 bg-white p-6 shadow-soft transition dark:border-white/10 dark:bg-brand-navy/35;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-primary px-7 py-3.5 text-sm font-semibold text-white shadow-brand-primary transition hover:bg-brand-primary-hover hover:shadow-[0_4px_16px_rgba(255,140,26,0.4)];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-7 py-3.5 text-sm font-semibold text-white/95 backdrop-blur-md transition hover:border-brand-gold/40 hover:bg-white/10;
+  }
+
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.22em] text-brand-primary;
+  }
+
+  .bg-grid-pattern {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  .hero-glow {
+    box-shadow: 0 0 120px rgba(255, 140, 26, 0.15), 0 30px 80px rgba(0, 0, 0, 0.4);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-gold via-white to-brand-primary bg-clip-text text-transparent;
+  }
+
+  .portfolio-mockup {
+    @apply relative aspect-[16/10] overflow-hidden rounded-2xl;
+  }
+
+  .saas-section {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+
+  .saas-section-alt {
+    @apply bg-brand-background py-20 dark:bg-brand-night sm:py-24 lg:py-28;
+  }
+
+  .saas-section-dark {
+    @apply bg-brand-dark py-20 text-white sm:py-24 lg:py-28;
+  }
+
+  .saas-headline {
+    @apply text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[3.25rem] lg:leading-[1.1];
+  }
+
+  .saas-subhead {
+    @apply mt-5 max-w-2xl text-lg leading-relaxed text-brand-text/70 dark:text-white/70;
+  }
+
+  .metric-card {
+    @apply flex flex-col border-l-2 border-brand-primary/40 pl-6 first:border-l-0 first:pl-0;
+  }
+
+  .metric-value {
+    @apply text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl;
+  }
+
+  .metric-label {
+    @apply mt-1 text-sm font-medium text-brand-text/70 dark:text-white/65;
+  }
+
+  .feature-tab {
+    @apply rounded-xl px-4 py-3 text-left text-sm font-semibold transition;
+  }
+
+  .feature-tab-active {
+    @apply bg-brand-primary text-white shadow-brand-primary;
+  }
+
+  .feature-tab-inactive {
+    @apply text-brand-text/70 hover:bg-black/5 dark:text-white/70 dark:hover:bg-white/10;
+  }
+
+  .dashboard-frame {
+    @apply overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/10 to-white/5 shadow-[0_40px_100px_rgba(0,0,0,0.45)] backdrop-blur-xl;
+  }
+
+  .pain-card {
+    @apply rounded-2xl border border-black/8 bg-white p-6 dark:border-white/10 dark:bg-brand-navy/50;
+  }
+
+  .solution-panel {
+    @apply rounded-3xl border border-black/10 bg-white p-8 shadow-soft dark:border-white/10 dark:bg-brand-navy/40 lg:p-10;
+  }
+
+  .integration-pill {
+    @apply rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-medium text-brand-text/80 dark:border-white/15 dark:bg-white/5 dark:text-white/80;
+  }
+
+  .btn-cta-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-primary px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-primary-hover;
+  }
+
+  .btn-cta-outline {
+    @apply inline-flex items-center justify-center rounded-lg border border-black/15 bg-transparent px-6 py-3.5 text-sm font-semibold text-brand-text transition hover:border-brand-primary hover:text-brand-primary dark:border-white/20 dark:text-white dark:hover:border-brand-gold dark:hover:text-brand-gold;
+  }
+
+  .animate-fade-up {
+    animation: agc-fade-up 0.7s ease forwards;
+  }
+
+  .animate-pulse-glow {
+    animation: agc-pulse-glow 4s ease-in-out infinite;
   }
 
   .reveal-up {
