@@ -275,6 +275,10 @@ export const PORTFOLIO_ITEMS = [
     category: 'ticketing',
     title: 'AGC ServiceDesk',
     subtitle: 'Support ticketing & service desk',
+    image: './portfolio/servicedesk.png',
+    imageAlt: 'AGC ServiceDesk — unified sign-in with role-based routing for agents, admins, and customers',
+    outcome:
+      'Central ticketing with priorities, assignments, SLA tracking, and CRM-linked conversations — so every request is owned, escalated, and resolved on time.',
     tags: ['Ticketing', 'SLA', 'Helpdesk'],
     tech: ['Laravel', 'React', 'RBAC', 'Notifications', 'CRM sync'],
     before: 'Support requests scattered across email, chats, and spreadsheets with no ownership or SLA visibility.',

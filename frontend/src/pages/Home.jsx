@@ -303,7 +303,7 @@ export default function Home() {
               <h2 className="mt-2 text-xl font-semibold tracking-tight text-brand-text dark:text-white">Built for regulated, high-stakes environments</h2>
             </div>
             <p className="max-w-xl text-sm leading-relaxed text-brand-text/70 dark:text-white/65">
-              Representative sectors we design for ??????? from compliance-heavy workflows to customer-facing digital products.
+              Representative sectors we design for — from compliance-heavy workflows to customer-facing digital products.
             </p>
           </div>
 
@@ -377,7 +377,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Core services</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Nine pillars of enterprise delivery</h2>
               <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                From custom software and cloud infrastructure to HRIS SmartDTR and cybersecurity ??????? explore our full service portfolio.
+                From custom software and cloud infrastructure to HRIS SmartDTR and cybersecurity — explore our full service portfolio.
               </p>
             </div>
             <a
@@ -511,7 +511,7 @@ export default function Home() {
           <p className="section-eyebrow">Our expertise</p>
           <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Deep technical capability across the stack</h2>
           <p className="mt-4 max-w-2xl text-base text-brand-text/75 dark:text-white/70">
-            Laravel, React, cloud infrastructure, AI automation, and domain-specific platforms ??????? built for production, not prototypes.
+            Laravel, React, cloud infrastructure, AI automation, and domain-specific platforms — built for production, not prototypes.
           </p>
           <div className="section-block card-grid md:grid-cols-2 xl:grid-cols-3">
             {EXPERTISE_AREAS.map((area) => (
@@ -602,7 +602,13 @@ export default function Home() {
                 onClick={() => setPortfolioModalId(item.id)}
                 className="glass-card overflow-hidden p-0 text-left"
               >
-                <div className={`portfolio-mockup bg-gradient-to-br ${item.gradient}`}>
+                <div
+                  className={[
+                    'portfolio-mockup bg-gradient-to-br',
+                    item.gradient?.startsWith('linear-gradient') ? '' : item.gradient,
+                  ].join(' ')}
+                  style={item.gradient?.startsWith('linear-gradient') ? { background: item.gradient } : undefined}
+                >
                   {item.image ? (
                     <>
                       <LazyImage
