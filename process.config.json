@@ -1,0 +1,41 @@
+{
+  "apps": [
+    {
+      "name": "agc-api",
+      "cwd": ".",
+      "script": "scripts/pm2-api-serve.cjs",
+      "interpreter": "node",
+      "env": {
+        "AGC_API_PORT": "8201",
+        "PHP_BINARY": "C:\\xampp\\php\\php.exe"
+      },
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "500M",
+      "restart_delay": 5000,
+      "min_uptime": "10s",
+      "max_restarts": 15,
+      "exp_backoff_restart_delay": 200,
+      "kill_timeout": 8000
+    },
+    {
+      "name": "agc-vite",
+      "cwd": ".",
+      "script": "scripts/pm2-vite-serve-v2.cjs",
+      "interpreter": "node",
+      "env": {
+        "AGC_API_PORT": "8201",
+        "AGC_VITE_PORT": "5172",
+        "AGC_SKIP_BUILD": "1"
+      },
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "500M",
+      "restart_delay": 5000,
+      "min_uptime": "10s",
+      "max_restarts": 15,
+      "exp_backoff_restart_delay": 200,
+      "kill_timeout": 8000
+    }
+  ]
+}

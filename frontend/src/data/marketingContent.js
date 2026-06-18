@@ -235,6 +235,8 @@ export const PORTFOLIO_ITEMS = [
     category: 'lending',
     title: 'Amalgated Lending',
     subtitle: 'Lending management platform',
+    image: './portfolio/amalgated-lending.png',
+    imageAlt: 'Amalgamated Lending — personal loans and lending solutions website',
     outcome: 'Faster loan processing with clearer pipeline visibility and compliance-ready audit trails.',
     tags: ['Lending', 'Finance', 'Compliance'],
     tech: ['Laravel', 'React', 'Reporting'],
@@ -259,12 +261,29 @@ export const PORTFOLIO_ITEMS = [
     category: 'hris',
     title: 'HRIS SmartDTR',
     subtitle: 'Digital time & attendance',
+    image: './portfolio/hris-smartdtr.png',
+    imageAlt: 'HRIS SmartDTR — attendance terminal and dashboard login',
     outcome: 'Accurate workforce timekeeping with biometric integration and payroll-ready exports.',
     tags: ['HRIS', 'DTR', 'Biometric'],
     tech: ['Laravel', 'Device API', 'Reports'],
     gradient: 'from-violet-800/70 via-purple-900/50 to-slate-900',
     before: 'Paper-based DTR and manual reconciliation created payroll errors and compliance gaps.',
     after: 'Smart digital timekeeping with leave management, overtime rules, and exportable payroll datasets.',
+  },
+  {
+    id: 'ticketing-system',
+    category: 'ticketing',
+    title: 'AGC ServiceDesk',
+    subtitle: 'Support ticketing & service desk',
+    tags: ['Ticketing', 'SLA', 'Helpdesk'],
+    tech: ['Laravel', 'React', 'RBAC', 'Notifications', 'CRM sync'],
+    before: 'Support requests scattered across email, chats, and spreadsheets with no ownership or SLA visibility.',
+    after:
+      'Central ticketing with priorities, assignments, SLA tracking, and CRM-linked conversations — so every request is owned, escalated, and resolved on time.',
+    gradient:
+      'linear-gradient(135deg, #0d9488 0%, #134e4a 38%, #1e293b 100%)',
+    beforeAccent: '#14b8a6',
+    afterAccent: '#2dd4bf',
   },
   {
     id: 'ai-support',
@@ -611,6 +630,7 @@ export const CASE_STUDY_METRICS = [
   { product: 'SmartDTR HRIS', metric: '85%', label: 'reduction in payroll errors' },
   { product: 'MCONPINCO', metric: '100%', label: 'audit-ready workflows' },
   { product: 'Amalgated Properties', metric: '2×', label: 'billing reconciliation speed' },
+  { product: 'AGC ServiceDesk', metric: '40%', label: 'faster first-response time' },
 ]
 
 export const TRUST_LOGOS = PARTNER_LABELS

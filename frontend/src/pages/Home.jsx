@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+﻿import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
 import ChatWidget from '../components/ChatWidget.jsx'
+import LazyImage from '../components/LazyImage.jsx'
 import { API_BASE_URL } from '../lib/config.js'
 import { fetchPublicApi } from '../lib/publicApi.js'
 import {
@@ -562,7 +563,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-primary">Portfolio</p>
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-brand-text dark:text-white sm:text-4xl">Web applications &amp; platforms we build</h2>
               <p className="mt-3 text-base leading-relaxed text-brand-text/75 dark:text-white/70">
-                Flagship solutions across the Amalgated ecosystem ??????? lending, property, HRIS, and enterprise operations.
+                Flagship solutions across the Amalgated ecosystem — lending, property, HRIS, ticketing, and enterprise operations.
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -573,6 +574,7 @@ export default function Home() {
                 { id: 'lending', label: 'Lending' },
                 { id: 'realestate', label: 'Real Estate' },
                 { id: 'hris', label: 'HRIS' },
+                { id: 'ticketing', label: 'Ticketing' },
                 { id: 'ai', label: 'AI' },
               ].map((f) => (
                 <button
@@ -600,10 +602,22 @@ export default function Home() {
                 onClick={() => setPortfolioModalId(item.id)}
                 className="glass-card overflow-hidden p-0 text-left"
               >
-                <div className={`portfolio-mockup bg-gradient-to-br ${item.gradient} flex items-end p-5`}>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-white/70">{item.subtitle}</p>
-                    <p className="text-lg font-semibold text-white">{item.title}</p>
+                <div className={`portfolio-mockup bg-gradient-to-br ${item.gradient}`}>
+                  {item.image ? (
+                    <>
+                      <LazyImage
+                        src={item.image}
+                        alt={item.imageAlt ?? item.title}
+                        className="absolute inset-0 h-full w-full object-cover object-top"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/35 to-transparent" aria-hidden />
+                    </>
+                  ) : null}
+                  <div className="relative z-10 flex h-full items-end p-5">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-white/70">{item.subtitle}</p>
+                      <p className="text-lg font-semibold text-white">{item.title}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="p-6">
