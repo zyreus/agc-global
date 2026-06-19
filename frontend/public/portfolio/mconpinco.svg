@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="MCONPINCO website preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#9a3412"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="50" y="60" width="700" height="280" rx="16" fill="#ffffff" opacity="0.12"/>
+  <rect x="50" y="360" width="340" height="80" rx="8" fill="#ffffff" opacity="0.1"/>
+  <rect x="410" y="360" width="340" height="80" rx="8" fill="#ffffff" opacity="0.1"/>
+  <text x="400" y="220" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" font-size="30" font-weight="600">MCONPINCO</text>
+</svg>

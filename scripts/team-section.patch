@@ -1,0 +1,41 @@
+--- a/frontend/src/pages/Home.jsx
++++ b/frontend/src/pages/Home.jsx
+@@ -33,6 +33,7 @@
+ import SolutionsSection from '../components/marketing/SolutionsSection.jsx'
+ import CaseStudyMetrics from '../components/marketing/CaseStudyMetrics.jsx'
+ import CareersNewsSection from '../components/marketing/CareersNewsSection.jsx'
++import TeamSection from '../components/marketing/TeamSection.jsx'
+ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion.js'
+ import { useReveal } from '../hooks/useReveal.js'
+ 
+@@ -369,6 +370,8 @@
+         </div>
+       </section>
+ 
++      <TeamSection />
++
+       <section id="services" className="hidden page-section-alt border-t border-black/5 dark:border-white/10">
+         <div className="app-container">
+           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+
+--- a/frontend/src/components/Header.jsx
++++ b/frontend/src/components/Header.jsx
+@@ -69,6 +69,7 @@
+     { id: 'portfolio', label: 'Portfolio' },
+     { id: 'industries', label: 'Industries' },
+     { id: 'about', label: 'About' },
++    { id: 'team', label: 'Our Team' },
+     { id: 'insights', label: 'News & insights' },
+   ]
+ 
+
+--- a/frontend/src/components/Footer.jsx
++++ b/frontend/src/components/Footer.jsx
+@@ -7,6 +7,7 @@
+   { href: '#portfolio', label: 'Portfolio' },
+   { href: '#industries', label: 'Industries' },
+   { href: '#about', label: 'About' },
++  { href: '#team', label: 'Our Team' },
+   { href: '#faq', label: 'FAQ' },
+   { href: '#insights', label: 'News & insights' },
+   { href: '#contact', label: 'Contact' },

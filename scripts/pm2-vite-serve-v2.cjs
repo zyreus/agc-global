@@ -10,6 +10,8 @@ const root = path.resolve(__dirname, '..')
 const frontend = path.join(root, 'frontend')
 const buildIndex = path.join(root, 'backend', 'public', 'app', 'index.html')
 const viteBin = path.join(frontend, 'node_modules', 'vite', 'bin', 'vite.js')
+const viteConfig = path.join(frontend, 'vite.config.team.mjs')
+const viteConfigFlag = ['--config', viteConfig]
 const vitePort = Number(process.env.AGC_VITE_PORT || 5172)
 const isDev = String(process.env.AGC_VITE_MODE || '').toLowerCase() === 'dev'
 const skipBuild = String(process.env.AGC_SKIP_BUILD || '').toLowerCase() === '1'
@@ -17,7 +19,7 @@ const node = process.execPath
 
 function runNode(args, label) {
   return new Promise((resolve, reject) => {
-    const child = spawn(node, [viteBin, ...args], {
+    const child = spawn(node, [viteBin, ...viteConfigFlag, ...args], {
       cwd: frontend,
       stdio: 'inherit',
       shell: false,
@@ -32,7 +34,7 @@ function runNode(args, label) {
 }
 
 function runDetached(args) {
-  const child = spawn(node, [viteBin, ...args], {
+  const child = spawn(node, [viteBin, ...viteConfigFlag, ...args], {
     cwd: frontend,
     stdio: 'inherit',
     shell: false,

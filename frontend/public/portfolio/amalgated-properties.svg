@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Amalgated Properties website preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="40" y="40" width="720" height="55" rx="10" fill="#ffffff" opacity="0.14"/>
+  <rect x="40" y="115" width="340" height="180" rx="12" fill="#ffffff" opacity="0.12"/>
+  <rect x="400" y="115" width="360" height="180" rx="12" fill="#ffffff" opacity="0.12"/>
+  <rect x="40" y="315" width="720" height="145" rx="12" fill="#ffffff" opacity="0.1"/>
+  <text x="400" y="220" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" font-size="28" font-weight="600">Amalgated Properties</text>
+</svg>

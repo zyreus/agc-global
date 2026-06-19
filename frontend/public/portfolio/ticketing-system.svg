@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Help desk ticketing system preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#134e4a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="40" y="40" width="720" height="60" rx="12" fill="#ffffff" opacity="0.12"/>
+  <rect x="40" y="120" width="220" height="340" rx="12" fill="#ffffff" opacity="0.1"/>
+  <rect x="280" y="120" width="480" height="160" rx="12" fill="#ffffff" opacity="0.15"/>
+  <rect x="280" y="300" width="480" height="160" rx="12" fill="#ffffff" opacity="0.1"/>
+  <text x="400" y="280" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" font-size="28" font-weight="600">AGC ServiceDesk</text>
+</svg>

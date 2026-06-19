@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Amalgated World website preview">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg)"/>
+  <rect x="60" y="50" width="680" height="50" rx="8" fill="#ffffff" opacity="0.15"/>
+  <rect x="60" y="130" width="680" height="200" rx="12" fill="#ffffff" opacity="0.12"/>
+  <rect x="60" y="350" width="200" height="100" rx="8" fill="#ffffff" opacity="0.1"/>
+  <rect x="280" y="350" width="200" height="100" rx="8" fill="#ffffff" opacity="0.1"/>
+  <rect x="500" y="350" width="240" height="100" rx="8" fill="#ffffff" opacity="0.1"/>
+  <text x="400" y="240" text-anchor="middle" fill="#ffffff" font-family="system-ui,sans-serif" font-size="32" font-weight="600">Amalgated World</text>
+</svg>
